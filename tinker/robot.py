@@ -19,15 +19,21 @@ class MyRobot(wpilib.TimedRobot):
         self.drive = wpilib.drive.DifferentialDrive(self.left_motor, self.right_motor)
         self.stick = wpilib.Joystick(1)
         self.timer = wpilib.Timer()
+        self.led1 = wpilib.DigitalOutput(0)  # LED hooked up to Digital Output 0
+        self.led2 = wpilib.DigitalOutput(2)  # LED hooked up to Digital Output 0
 
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
+        
         self.timer.reset()
         self.timer.start()
-
+        
     def autonomousPeriodic(self):
         """This function is called periodically during autonomous."""
 
+        self.led1.set(True)
+        self.led2.set(True)
+        
         # Drive for two seconds
         if self.timer.get() < 2.0:
             self.drive.arcadeDrive(-0.5, 0)  # Drive forwards at half speed
@@ -35,6 +41,10 @@ class MyRobot(wpilib.TimedRobot):
             self.drive.arcadeDrive(0, 0)  # Stop robot
 
     def teleopPeriodic(self):
+        
+        self.led1.set(False)
+        self.led2.set(False)
+        
         """This function is called periodically during operator control."""
         self.drive.arcadeDrive(self.stick.getY(), self.stick.getX())
 
