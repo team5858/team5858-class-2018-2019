@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Main program
+Main program for 2019
 """
 
 from commands.autonomous import AutonomousProgram
