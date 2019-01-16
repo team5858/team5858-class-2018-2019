@@ -22,4 +22,6 @@ class LEDs(Subsystem):
         self._led_red.set(state)
 
     # TODO Add setter for GREEN LED
-    
+    def set_green(self,state):
+        """Set the state of the RED led"""
+        self._led_green.set(state)
