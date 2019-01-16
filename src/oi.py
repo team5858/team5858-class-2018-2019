@@ -19,6 +19,7 @@ def get_joystick():
 
     trigger = JoystickButton(joystick, Joystick.ButtonType.kTrigger) # A Button
     trigger.whenPressed(commands.green_led_on.GreenLEDOn(True))
+    trigger.whenReleased(commands.green_led_on.GreenLEDOn(False))
 
 
     return joystick
