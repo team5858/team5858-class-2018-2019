@@ -3,12 +3,21 @@
 """
 Main program for 2019
 """
+#talon srx - leader
+#4 and 5
+#4 left, 5 right
+
+#victor spx - follower
+#9 and 10
+#9 left, 10 right
+
 
 from commands.autonomous import AutonomousProgram
 
 import wpilib
 from wpilib.command import Command
 from commandbased import CommandBasedRobot
+from subsystems import drivetrain
 
 from subsystems import leds
 
@@ -23,12 +32,13 @@ class HurricaneRobot(CommandBasedRobot):
         """
         This is a good place to set up your subsystems and anything else that
         you will need to access later.
-        """
+         """
 
         # All commands can get access to this object with "getRobot()"
         Command.getRobot = lambda x=0: self
 
         self.leds = leds.LEDs()
+        self.drivetrain = drivetrain.Drivetrains ()
 
         self.autonomous_program = AutonomousProgram()
 

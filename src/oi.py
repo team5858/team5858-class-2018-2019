@@ -13,7 +13,7 @@ def get_joystick():
     """
     Assign commands to button actions, and publish your joysticks so you
     can read values from them later.
-    """
+    """[1]
 
     joystick = Joystick(0)
 
