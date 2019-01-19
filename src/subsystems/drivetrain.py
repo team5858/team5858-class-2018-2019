@@ -2,9 +2,10 @@ import wpilib
 from wpilib.command.subsystem import Subsystem
 from ctre.wpi_talonsrx import WPI_TalonSRX
 from ctre.wpi_victorspx import WPI_VictorSPX
-
+from wpilib.drive import DifferentialDrive
 
 class Drivetrains(Subsystem):
+
 
     def __init__(self):
         super().__init__("Drivetrains")
@@ -15,6 +16,11 @@ class Drivetrains(Subsystem):
         self.rightleader = WPI_TalonSRX(5)
         self.leftfollower.follow(self.leftleader)
         self.rightfollower.follow(self.rightleader)
+
+        self.drive = DifferentialDrive(self.leftleader, self.rightleader)
+
+    def stickdrive(self):
+        self.drive.arcadeDrive(self.getRobot().joystick)
 
 
 
