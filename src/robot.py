@@ -20,7 +20,7 @@ from commandbased import CommandBasedRobot
 from subsystems import drivetrain
 
 from subsystems import leds
-
+from subsystems import vacuum
 import oi
 
 class HurricaneRobot(CommandBasedRobot):
@@ -39,7 +39,7 @@ class HurricaneRobot(CommandBasedRobot):
 
         self.leds = leds.LEDs()
         self.drivetrain = drivetrain.Drivetrains ()
-
+        self.vacuum = vacuum.Vacuum ()
         self.autonomous_program = AutonomousProgram()
 
         #self.teleop_program = TeleopProgram()

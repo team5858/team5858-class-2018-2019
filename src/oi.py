@@ -4,7 +4,7 @@ Operator Interface -- map commands to buttons.
 
 from wpilib.joystick import Joystick
 from wpilib.buttons.joystickbutton import JoystickButton
-
+import commands.vacuumtrigger
 import commands.green_led_on
 
 def get_joystick():
@@ -20,8 +20,8 @@ def get_joystick():
     trigger.whenReleased(commands.green_led_on.GreenLEDOn(False))
 
     trigger = JoystickButton(joystick=joystick, buttonNumber=1)
-    trigger.whenPressed(commands.vacuum.VacuumTrigger (True))
-    trigger.whenReleased(commands.vacuum.VacuumTrigger (False))
+    trigger.whenPressed(commands.vacuumtrigger.VacuumTrigger (True))
+    trigger.whenReleased(commands.vacuumtrigger.VacuumTrigger (False))
 
 
 

@@ -20,9 +20,9 @@ class Drive(Command):
         "Called repeatedly when this Command is scheduled to run  "
         self.robot.drivetrain.tankDriveJoystick(self.robot.oi.getJoystick())
 
-     def end(self):
+    def end(self):
          self.robot.drivetrain.stop()
 
-     def interrupted(self):
+    def interrupted(self):
          self.end()
 
