@@ -18,11 +18,12 @@ class Drive(Command):
         return False
     def execute(self):
         "Called repeatedly when this Command is scheduled to run  "
-        self.robot.drivetrain.tankDriveJoystick(self.robot.oi.getJoystick())
+        self.getRobot().drivetrain.tankDrive(self.getRobot().joystick)
 
     def end(self):
          self.robot.drivetrain.stop()
 
     def interrupted(self):
          self.end()
+
 

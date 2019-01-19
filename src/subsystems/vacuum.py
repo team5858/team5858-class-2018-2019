@@ -13,13 +13,12 @@ class Vacuum(Subsystem):
     def __init__(self):
 
         super().__init__("Vacuum")
-        self.vacmotor = VictorSP(6)
+        self.vacmotor = VictorSP (6)
 
 
 
     def set_motor (self,on_off):
         if on_off:
-            self.vacmotor.setSpeed(0.5)
+            self.vacmotor.setSpeed(1)
         else:
             self.vacmotor.stopMotor()
-
