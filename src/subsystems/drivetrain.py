@@ -3,7 +3,7 @@ from wpilib.command.subsystem import Subsystem
 from ctre.wpi_talonsrx import WPI_TalonSRX
 from ctre.wpi_victorspx import WPI_VictorSPX
 from wpilib.drive import DifferentialDrive
-
+from commands.drive import Drive
 class Drivetrains(Subsystem):
 
 
@@ -21,6 +21,8 @@ class Drivetrains(Subsystem):
 
     def stickdrive(self):
         self.drive.arcadeDrive(self.getRobot().joystick)
+    def initDefaultCommand(self):
+        self.setDefaultCommand(Drive())
 
 
 
