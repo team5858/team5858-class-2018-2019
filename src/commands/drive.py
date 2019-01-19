@@ -18,7 +18,7 @@ class Drive(Command):
         return False
     def execute(self):
         "Called repeatedly when this Command is scheduled to run  "
-        self.getRobot().drivetrain.tankDrive(self.getRobot().joystick)
+        self.getRobot().drivetrain.stickdrive(self.getRobot().joystick)
 
     def end(self):
          self.robot.drivetrain.stop()
