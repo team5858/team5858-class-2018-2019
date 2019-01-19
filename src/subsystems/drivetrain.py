@@ -19,8 +19,8 @@ class Drivetrains(Subsystem):
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
 
-    def stickdrive(self):
-        self.drive.arcadeDrive(self.getRobot().joystick)
+    def stickdrive(self,stick):
+        self.drive.arcadeDrive(stick.getY(), stick.getRawAxis(4))
     def initDefaultCommand(self):
         self.setDefaultCommand(Drive())
 
