@@ -1,7 +1,7 @@
 import wpilib
 from wpilib.command.subsystem import Subsystem
-from ctre.victorspx import VictorSPX
-import ctre.victorspx
+
+from wpilib.victorsp import VictorSP
 
 #pwm = 6
 import wpilib
@@ -13,13 +13,13 @@ class Vacuum(Subsystem):
     def __init__(self):
 
         super().__init__("Vacuum")
-        self.vacmotor = VictorSPX (6)
+        self.vacmotor = VictorSP(6)
 
 
 
     def set_motor (self,on_off):
         if on_off:
-            self.vacmotor.
+            self.vacmotor.setSpeed(0.5)
         else:
             self.vacmotor.stopMotor()
 
