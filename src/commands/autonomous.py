@@ -1,10 +1,11 @@
 """
 Command group to blink the red LED 4 times
 """
-
-from commands.set_red_led import SetRedLED
 from wpilib.command.commandgroup import CommandGroup
 from wpilib.command.waitcommand import WaitCommand
+
+from commands.red_led import SetRedLED
+
 
 class AutonomousProgram(CommandGroup):
     """
@@ -13,8 +14,6 @@ class AutonomousProgram(CommandGroup):
 
     def __init__(self):
         super().__init__("Autonomous Program")
-
-        print("HERE IN AUTONOMOUS PROGRAM")
 
         self.addSequential(SetRedLED(True))
         self.addSequential(WaitCommand(timeout=1))
