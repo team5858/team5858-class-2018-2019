@@ -5,6 +5,8 @@ Ball intake system
 from ctre.wpi_victorspx import WPI_VictorSPX
 from wpilib.command.subsystem import Subsystem
 
+PWM_BALL_INTAKE = 1  # VictorSP Pro attached to PWM 1
+
 
 class BallIntake(Subsystem):
     """Subsystem functions for the ball intake"""

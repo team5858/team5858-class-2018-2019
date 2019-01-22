@@ -18,16 +18,9 @@ from subsystems.vacuum import Vacuum
 
 class HurricaneRobot(CommandBasedRobot):
     """
-    The robot starts here. The code here sets up the subsystems and mode commands.
+    The robot starts here. This code sets up the subsystems, joystick triggers,
+    and auto/teleop mode commands.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.leds = None
-        self.drivetrain = None
-        self.vacuum = None
-        self.ball_intake = None
-        self.joystick = None
 
     def robotInit(self):
         """
@@ -36,18 +29,16 @@ class HurricaneRobot(CommandBasedRobot):
         """
 
         # All commands can get access to the subsystems here
-        subsystems.ROBOT = self
-
-        self.leds = LEDs()
-        self.drivetrain = Drivetrain()
-        self.vacuum = Vacuum()
-        self.ball_intake = BallIntake()
+        subsystems.LEDS = LEDs()
+        subsystems.DRIVETRAIN = Drivetrain()
+        subsystems.VACUUM = Vacuum()
+        subsystems.BALL_INTAKE = BallIntake()
 
         """
         Since OI instantiates commands and commands need access to subsystems,
         OI must be initialized after subsystems.
         """
-        self.joystick = oi.get_joystick()
+        subsystems.JOYSTICK = oi.get_joystick()
 
     def autonomousInit(self):
         """

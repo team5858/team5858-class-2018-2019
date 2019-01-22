@@ -1,9 +1,9 @@
 """
 Command group to blink the red LED 4 times
 """
+
 from wpilib.command.commandgroup import CommandGroup
 from wpilib.command.waitcommand import WaitCommand
-
 from commands.red_led import SetRedLED
 
 

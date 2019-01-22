@@ -1,4 +1,11 @@
 """
-We keep the robot singleton here in case you need it
+These are the singletons of the subsystems ... here for
+easy access by commands.
 """
-ROBOT = None
+
+LEDS = None
+DRIVETRAIN = None
+VACUUM = None
+BALL_INTAKE = None
+
+JOYSTICK = None

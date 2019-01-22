@@ -1,22 +1,22 @@
 """
 Command to move the ball-intake forwards
 """
-from wpilib.command import Command
 
+from wpilib.command import Command
 import subsystems
 
 
-class BallIntake(Command):
+class BallForward(Command):
     """Ball-intake forwards"""
 
     def __init__(self):
         super().__init__("Make ball go forwards")
 
-        self.requires(subsystems.ROBOT.ball_intake)
+        self.requires(subsystems.BALL_INTAKE)
 
     def initialize(self):
         print("ballforward" + str(self))
-        subsystems.ROBOT.ball_intake.forward()
+        subsystems.BALL_INTAKE.forward()
 
     def isFinished(self):
         return True

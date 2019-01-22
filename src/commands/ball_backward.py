@@ -5,17 +5,17 @@ from wpilib.command import Command
 import subsystems
 
 
-class BallIntake(Command):
+class BallBackward(Command):
     """BallIntake backwards"""
 
     def __init__(self):
         super().__init__("Make ball go backwards")
 
-        self.requires(subsystems.ROBOT.ball_intake)
+        self.requires(subsystems.BALL_INTAKE)
 
     def initialize(self):
         print("ballbackward" + str(self))
-        subsystems.ROBOT.ball_intake.backward()
+        subsystems.BALL_INTAKE.backward()
 
     def isFinished(self):
         return True

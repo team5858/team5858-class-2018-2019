@@ -1,5 +1,8 @@
-from wpilib.command import Command
+"""
+Control the RED LED
+"""
 
+from wpilib.command import Command
 import subsystems
 
 
@@ -11,22 +14,19 @@ class SetRedLED(Command):
     def __init__(self, state):
         super().__init__("Set the state of the red LED")
 
-        self.requires(subsystems.ROBOT.leds)
+        self.requires(subsystems.LEDS)
 
         self._state = state
 
     def initialize(self):
-        """Called just before this Command runs the first time"""
-        print("SetRedLED init: " + str(self._state))
-        subsystems.ROBOT.leds.set_red(self._state)
+        subsystems.LEDS.set_red(self._state)
+
+    def isFinished(self):
+        return True
 
     # def execute(self):
     #    """Called repeatedly when this Command is scheduled to run"""
     #    pass
-
-    def isFinished(self):
-        """Make this return true when this Command no longer needs to run execute()"""
-        return True
 
     # def end(self):
     #    """Called once after isFinished returns true"""
