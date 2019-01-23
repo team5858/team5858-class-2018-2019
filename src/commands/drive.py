@@ -1,29 +1,22 @@
-from wpilib.command import Command
+"""
+Continuous driving
+"""
 
-from wpilib.command.waitcommand import WaitCommand
+from wpilib.command import Command
+import subsystems
+
 
 class Drive(Command):
-
+    """Drive the robot from the joystick"""
 
     def __init__(self):
         super().__init__("Drive")
 
-        self.requires(self.getRobot().drivetrain)
-
-    def initialize(self):
-       pass
+        self.requires(subsystems.DRIVETRAIN)
 
     def isFinished(self):
-        """Make this return true when this Command no longer needs to run execute()"""
+        # This is always running
         return False
+
     def execute(self):
-        "Called repeatedly when this Command is scheduled to run  "
-        self.getRobot().drivetrain.stickdrive(self.getRobot().joystick)
-
-    def end(self):
-         self.robot.drivetrain.stop()
-
-    def interrupted(self):
-         self.end()
-
-
+        subsystems.DRIVETRAIN.stickdrive()

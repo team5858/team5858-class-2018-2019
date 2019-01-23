@@ -5,6 +5,10 @@ The status/test LEDs attached to the DIO pins
 import wpilib
 from wpilib.command.subsystem import Subsystem
 
+DIO_LED_RED = 0
+DIO_LED_GREEN = 2
+
+
 class LEDs(Subsystem):
     """
     Control for the LEDs.
@@ -14,14 +18,13 @@ class LEDs(Subsystem):
 
         super().__init__("LEDs")
 
-        self._led_red   = wpilib.DigitalOutput(0)  # Red LED hooked up to Digital Output 0
-        self._led_green = wpilib.DigitalOutput(2)  # Green LED hooked up to Digital Output 2
+        self._led_red = wpilib.DigitalOutput(DIO_LED_RED)
+        self._led_green = wpilib.DigitalOutput(DIO_LED_GREEN)
 
-    def set_red(self,state):
+    def set_red(self, state):
         """Set the state of the RED led"""
         self._led_red.set(state)
 
-    # TODO Add setter for GREEN LED
-    def set_green(self,state):
-        """Set the state of the RED led"""
+    def set_green(self, state):
+        """Set the state of the GREEN led"""
         self._led_green.set(state)
