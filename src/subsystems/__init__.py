@@ -33,10 +33,10 @@ is connected directly to the TalonSRX.
 
 ***** CARGO HANDLER *****
 
-The  lower (horizontal) leg of the ELEVATOR holds 4 wheels for pulling/pushing
+The wrist of the ELEVATOR holds 4 wheels for pulling/pushing
 balls. Two motors control theses wheels.
 
-The lower (horizontal) leg holds a pop-out mechanism to push hatches. The pop-out
+The wrist holds a pop-out mechanism to push hatches. The pop-out
 is a single-piston (with spring return).
 
   2 [CAN OUT] Motors set as leader/follower
