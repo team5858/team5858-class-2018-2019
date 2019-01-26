@@ -17,6 +17,7 @@ class Vacuum(Subsystem):
 
     def set_motor(self, on_off):
         """Set the vacuum on or off"""
+        print('HELLO')
         if on_off:
             self.vacmotor.setSpeed(1)
         else:
