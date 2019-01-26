@@ -55,11 +55,12 @@ class Drivetrain(Subsystem):
         self.rightfollower.follow(self.rightleader)
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
+        self.drive.maxOutput = 1
 
     def stickdrive(self):
         """set the motors based on the user inputs"""
         stick = subsystems.JOYSTICK
-        self.drive.arcadeDrive(stick.getRawAxis(4), -stick.getY())
+        self.drive.arcadeDrive(-stick.getRawAxis(4), stick.getY())
 
     def initDefaultCommand(self):
         self.setDefaultCommand(Drive())
