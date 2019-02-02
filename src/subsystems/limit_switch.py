@@ -7,7 +7,7 @@ class LimitSwitch(wpilib.IterativeRobot):
         self.forwardLimitSwitch = wpilib.DigitalInput(1)
         self.reverseLimitSwitch = wpilib.DigitalInput(2)
         self.joystick1 = wpilib.Joystick(1)
-        self.motor = wpilib.Talon(1)
+        #self.motor = wpilib.Talon(1)
 
     def teleopPeriodic(self):
         output = self.Joystick1.getY()
@@ -16,4 +16,4 @@ class LimitSwitch(wpilib.IterativeRobot):
         elif self.reverseLimitSwitch.get():
             output = max(0, output)
 
-        motor.set(output)
+        #motor.set(output)

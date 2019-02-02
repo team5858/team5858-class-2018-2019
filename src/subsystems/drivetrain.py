@@ -26,28 +26,45 @@ import subsystems
 import wpilib
 from wpilib.doublesolenoid import DoubleSolenoid
 
-CAN_LEFT_LEADER = 4  # TalonSRX with CAN ID 4
-CAN_LEFT_FOLLOWER = 9  # VictorSPX with CAN ID 9
-CAN_RIGHT_LEADER = 5  # TalonSRX with CAN ID 5
-CAN_RIGHT_FOLLOWER = 10  # VictorSPX with CAN ID 10
+CAN_LEFT_LEADER = 2  # TalonSRX with CAN ID 4
+CAN_LEFT_FOLLOWER = 10  # VictorSPX with CAN ID 9
+CAN_RIGHT_LEADER = 3  # TalonSRX with CAN ID 5
+CAN_RIGHT_FOLLOWER = 9  # VictorSPX with CAN ID 10
 PNU_LEFT_HIGH = 1
 PNU_LEFT_LOW = 2
 PNU_RIGHT_HIGH = 3
 PNU_RIGHT_LOW = 4
 
 
+def set_motor2(motor, brake):
+    motor.enableCurrentLimit(False)
+    motor.configPeakOutputForward(1, 0)
+    motor.configPeakOutputReverse(-1, 0)
+    motor.setNeutralMode(brake)
+    motor.configOpenLoopRamp(0,0)
+
 class Drivetrain(Subsystem):
     """Functions for the drivetrain"""
+
 
     def __init__(self):
         super().__init__("Drivetrain")
 
         self.leftleader = WPI_TalonSRX(CAN_LEFT_LEADER)
-        self.leftleader.setInverted(True)
+        self.leftleader.setInverted(False)
+        set_motor2(self.leftleader,WPI_TalonSRX.NeutralMode.Brake )
+
         self.leftfollower = WPI_VictorSPX(CAN_LEFT_FOLLOWER)
-        self.leftfollower.setInverted(True)
+        self.leftfollower.setInverted(False)
+        set_motor2(self.leftfollower,WPI_VictorSPX.NeutralMode.Brake)
+
         self.rightleader = WPI_TalonSRX(CAN_RIGHT_LEADER)
+        set_motor2(self.rightleader,WPI_TalonSRX.NeutralMode.Brake )
+        self.rightleader.setInverted(True)
+
         self.rightfollower = WPI_VictorSPX(CAN_RIGHT_FOLLOWER)
+        set_motor2(self.rightfollower,WPI_VictorSPX.NeutralMode.Brake )
+        self.rightfollower.setInverted(True)
 
         self.DS = wpilib.DoubleSolenoid(1,2)
 
@@ -60,7 +77,10 @@ class Drivetrain(Subsystem):
     def stickdrive(self):
         """set the motors based on the user inputs"""
         stick = subsystems.JOYSTICK
-        self.drive.arcadeDrive(-stick.getRawAxis(4), stick.getY())
+        x = stick.getRawAxis(4)
+        y = stick.getY()
+        self.drive.arcadeDrive(-(x*x*x),(y*y*y))
+        #self.drive.arcadeDrive(-x, y)
 
     def initDefaultCommand(self):
         self.setDefaultCommand(Drive())
