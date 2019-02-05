@@ -72,7 +72,7 @@ class Drivetrain(Subsystem):
         self.rightfollower.follow(self.rightleader)
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
-        self.drive.maxOutput = 1
+        self.drive.maxOutput = 0.8
 
     def stickdrive(self):
         """set the motors based on the user inputs"""
@@ -80,6 +80,15 @@ class Drivetrain(Subsystem):
         x = stick.getRawAxis(4)
         y = stick.getY()
         self.drive.arcadeDrive(-(x*x*x),(y*y*y))
+        P = self.leftleader.getQuadraturePosition()
+        P2 = self.rightleader.getQuadraturePosition()
+        print (" Left " +str (P) + " Right " +str (P2))
+        P3 = self.leftleader.getMotorOutputVoltage()
+        P4 = self.rightleader.getMotorOutputVoltage()
+        #print(" Left " + str(P3) + " Right " + str(P4))
+        P5 = self.leftleader.getOutputCurrent()
+        P6 = self.rightleader.getOutputCurrent()
+        #print(" Left " + str(P5) + " Right " + str(P6))
         #self.drive.arcadeDrive(-x, y)
 
     def initDefaultCommand(self):
