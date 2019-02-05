@@ -39,6 +39,7 @@ class HurricaneRobot(CommandBasedRobot):
         OI must be initialized after subsystems.
         """
         subsystems.JOYSTICK = oi.get_joystick()
+        wpilib.CameraServer.launch()
 
     def autonomousInit(self):
         """

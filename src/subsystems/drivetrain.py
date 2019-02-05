@@ -78,11 +78,17 @@ class Drivetrain(Subsystem):
         """set the motors based on the user inputs"""
         stick = subsystems.JOYSTICK
         x = stick.getRawAxis(4)
+        if x > 0.3 or x < -0.3:
+            self.drive.maxOutput = 0.6
+        else:
+            self.drive.maxOutput = 0.8
+        print (x)
         y = stick.getY()
-        self.drive.arcadeDrive(-(x*x*x),(y*y*y))
+        #self.drive.arcadeDrive(-(x*x*x),(y*y*y))
+        self.drive.arcadeDrive(-x, y)
         P = self.leftleader.getQuadraturePosition()
         P2 = self.rightleader.getQuadraturePosition()
-        print (" Left " +str (P) + " Right " +str (P2))
+        #print (" Left " +str (P) + " Right " +str (P2))
         P3 = self.leftleader.getMotorOutputVoltage()
         P4 = self.rightleader.getMotorOutputVoltage()
         #print(" Left " + str(P3) + " Right " + str(P4))
