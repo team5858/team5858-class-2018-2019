@@ -23,16 +23,3 @@ class SetRedLED(Command):
 
     def isFinished(self):
         return True
-
-    # def execute(self):
-    #    """Called repeatedly when this Command is scheduled to run"""
-    #    pass
-
-    # def end(self):
-    #    """Called once after isFinished returns true"""
-    #    return True
-
-    # def interrupted(self):
-    #    """Called when another command which requires one or more of the same
-    #    subsystems is scheduled to run"""
-    #    self.end()

@@ -18,14 +18,16 @@ Motor Controllers:
 
 from ctre.wpi_talonsrx import WPI_TalonSRX
 from ctre.wpi_victorspx import WPI_VictorSPX
+import wpilib
 from wpilib.command.subsystem import Subsystem
+from wpilib.doublesolenoid import DoubleSolenoid
 from wpilib.drive import DifferentialDrive
 
 from commands.drive import Drive
 import subsystems
-import wpilib
-from wpilib.doublesolenoid import DoubleSolenoid
 
+
+# TODO move these IDs to the __init__
 CAN_LEFT_LEADER = 2  # TalonSRX with CAN ID 4
 CAN_LEFT_FOLLOWER = 10  # VictorSPX with CAN ID 9
 CAN_RIGHT_LEADER = 3  # TalonSRX with CAN ID 5
@@ -41,32 +43,32 @@ def set_motor2(motor, brake):
     motor.configPeakOutputForward(1, 0)
     motor.configPeakOutputReverse(-1, 0)
     motor.setNeutralMode(brake)
-    motor.configOpenLoopRamp(0,0)
+    motor.configOpenLoopRamp(0, 0)
+
 
 class Drivetrain(Subsystem):
     """Functions for the drivetrain"""
-
 
     def __init__(self):
         super().__init__("Drivetrain")
 
         self.leftleader = WPI_TalonSRX(CAN_LEFT_LEADER)
         self.leftleader.setInverted(False)
-        set_motor2(self.leftleader,WPI_TalonSRX.NeutralMode.Brake )
+        set_motor2(self.leftleader, WPI_TalonSRX.NeutralMode.Brake)
 
         self.leftfollower = WPI_VictorSPX(CAN_LEFT_FOLLOWER)
         self.leftfollower.setInverted(False)
-        set_motor2(self.leftfollower,WPI_VictorSPX.NeutralMode.Brake)
+        set_motor2(self.leftfollower, WPI_VictorSPX.NeutralMode.Brake)
 
         self.rightleader = WPI_TalonSRX(CAN_RIGHT_LEADER)
-        set_motor2(self.rightleader,WPI_TalonSRX.NeutralMode.Brake )
+        set_motor2(self.rightleader, WPI_TalonSRX.NeutralMode.Brake)
         self.rightleader.setInverted(True)
 
         self.rightfollower = WPI_VictorSPX(CAN_RIGHT_FOLLOWER)
-        set_motor2(self.rightfollower,WPI_VictorSPX.NeutralMode.Brake )
+        set_motor2(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake)
         self.rightfollower.setInverted(True)
 
-        self.DS = wpilib.DoubleSolenoid(1,2)
+        self.DS = wpilib.DoubleSolenoid(1, 2)
 
         self.leftfollower.follow(self.leftleader)
         self.rightfollower.follow(self.rightleader)
@@ -82,9 +84,9 @@ class Drivetrain(Subsystem):
             self.drive.maxOutput = 0.6
         else:
             self.drive.maxOutput = 0.8
-        print (x)
+        # print(x)
         y = stick.getY()
-        #self.drive.arcadeDrive(-(x*x*x),(y*y*y))
+        # self.drive.arcadeDrive(-(x*x*x),(y*y*y))
         self.drive.arcadeDrive(-x, y)
         P = self.leftleader.getQuadraturePosition()
         P2 = self.rightleader.getQuadraturePosition()
@@ -100,9 +102,8 @@ class Drivetrain(Subsystem):
     def initDefaultCommand(self):
         self.setDefaultCommand(Drive())
 
-    def set_gear(self,direction):
+    def set_gear(self, direction):
         if direction:
             self.DS.set(DoubleSolenoid.Value.kForward)
         else:
             self.DS.set(DoubleSolenoid.Value.kReverse)
-

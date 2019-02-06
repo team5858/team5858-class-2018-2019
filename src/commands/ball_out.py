@@ -1,21 +1,21 @@
 """
-Stop the ball intake
+Command to move the out
 """
 
 from wpilib.command import Command
 import subsystems
 
 
-class BallStop(Command):
-    """Ball-intake stop"""
+class BallOut(Command):
+    """Ball-intake out"""
 
     def __init__(self):
-        super().__init__("Make ball stop")
+        super().__init__("Make ball go out")
 
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.wheels_stop()
+        subsystems.PAYLOAD.wheels_out()
 
     def isFinished(self):
         return True

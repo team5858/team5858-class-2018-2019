@@ -7,13 +7,12 @@ Main program for 2019
 from commandbased import CommandBasedRobot
 import wpilib
 
-from commands.autonomous import AutonomousProgram
 import oi
 import subsystems
-from subsystems.ball_intake import BallIntake
 from subsystems.drivetrain import Drivetrain
+from subsystems.elevator import Elevator
 from subsystems.leds import LEDs
-from subsystems.vacuum import Vacuum
+from subsystems.payload_manipulator import Payload
 
 
 class HurricaneRobot(CommandBasedRobot):
@@ -31,8 +30,10 @@ class HurricaneRobot(CommandBasedRobot):
         # All commands can get access to the subsystems here
         subsystems.LEDS = LEDs()
         subsystems.DRIVETRAIN = Drivetrain()
-        subsystems.VACUUM = Vacuum()
-        subsystems.BALL_INTAKE = BallIntake()
+        subsystems.ELEVATOR = Elevator()
+        subsystems.PAYLOAD = Payload()
+
+        # TODO serial subsystem
 
         """
         Since OI instantiates commands and commands need access to subsystems,
@@ -46,8 +47,7 @@ class HurricaneRobot(CommandBasedRobot):
         Called to start the automomous command
         """
 
-        autonomous_program = AutonomousProgram()
-        autonomous_program.start()
+        pass
 
 
 if __name__ == "__main__":

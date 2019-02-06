@@ -5,13 +5,15 @@ The status/test LEDs attached to the DIO pins
 import wpilib
 from wpilib.command.subsystem import Subsystem
 
+# TODO move these IDs to __init__
+
 DIO_LED_RED = 0
 DIO_LED_GREEN = 2
 
 
 class LEDs(Subsystem):
     """
-    Control for the LEDs.
+    Control for the diagnostics LEDs.
     """
 
     def __init__(self):

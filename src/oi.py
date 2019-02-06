@@ -1,12 +1,28 @@
 """
 Operator Interface -- map commands to buttons.
+
+
+TODO: map out these controls
+
+  LeftStick:  turn left, right
+  RightStick: forward, backwards
+
+  ??:           Gear shift. Hold for low, release for high.
+  HatUpDown:    Click N times for elevator level N.
+  HatLeftRight: Click N times for wrist position N.
+  ??:           Fine Tune. Hold to change hat switches to fine-tune position.
+  ??:           Eject hatch. Push to eject.
+  ??:           Ball-in. Hold to spin intake wheels.
+  ??:           Ball-out. Hold to spin intake wheels.
+
+  ??: Align to Rocket?
+  ??: ALign to Hab?
+
 """
 
 from wpilib.buttons.joystickbutton import JoystickButton
 from wpilib.joystick import Joystick
 
-from commands.led_green import SetGreenLED
-from commands.vacuum_trigger import VacuumTrigger
 from commands.gear_shift import gear_shift
 
 
@@ -18,13 +34,8 @@ def get_joystick():
 
     joystick = Joystick(0)
 
-    trigger = JoystickButton(joystick=joystick, buttonNumber=2)
-    trigger.whenPressed(SetGreenLED(True))
-    trigger.whenReleased(SetGreenLED(False))
-
-    trigger = JoystickButton(joystick=joystick, buttonNumber=1)
-    trigger.whenPressed(VacuumTrigger(True))
-    trigger.whenReleased(VacuumTrigger(False))
+    # TODO lots of commands to map here
+    # TODO how are we going to count taps for position?
 
     trigger = JoystickButton(joystick=joystick, buttonNumber=5)
     trigger.whenPressed(gear_shift(True))

@@ -1,21 +1,20 @@
 """
-Stop the ball intake
+Take a ball in
 """
-
 from wpilib.command import Command
 import subsystems
 
 
-class BallStop(Command):
-    """Ball-intake stop"""
+class BallIn(Command):
+    """BallIntake IN"""
 
     def __init__(self):
-        super().__init__("Make ball stop")
+        super().__init__("Take in a ball")
 
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.wheels_stop()
+        subsystems.PAYLOAD.wheels_in()
 
     def isFinished(self):
         return True
