@@ -13,6 +13,7 @@ from subsystems.drivetrain import Drivetrain
 from subsystems.elevator import Elevator
 from subsystems.leds import LEDs
 from subsystems.payload_manipulator import Payload
+from subsystems.serial_events import SerialEvent
 
 
 class HurricaneRobot(CommandBasedRobot):
@@ -32,8 +33,7 @@ class HurricaneRobot(CommandBasedRobot):
         subsystems.DRIVETRAIN = Drivetrain()
         subsystems.ELEVATOR = Elevator()
         subsystems.PAYLOAD = Payload()
-
-        # TODO serial subsystem
+        subsystems.SERIAL = SerialEvent()
 
         """
         Since OI instantiates commands and commands need access to subsystems,
@@ -47,7 +47,10 @@ class HurricaneRobot(CommandBasedRobot):
         Called to start the automomous command
         """
 
-        pass
+        subsystems.SERIAL.fire_event('Autonomous Mode')
+
+    # WARNING. We need to implement the teleopInit just in case. The field *might* require that we do so (might kill
+    # the autonomous command)
 
 
 if __name__ == "__main__":

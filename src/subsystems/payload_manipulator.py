@@ -1,5 +1,6 @@
 import wpilib
 from wpilib.command.subsystem import Subsystem
+import subsystems
 
 
 class Payload(Subsystem):
@@ -14,15 +15,15 @@ class Payload(Subsystem):
 
     def wheels_in(self):
         # TODO Spin motors to bring ball in
-        pass
+        subsystems.SERIAL.fire_event('Wheels In')
 
     def wheels_out(self):
         # TODO Spin motors to push ball out
-        pass
+        subsystems.SERIAL.fire_event('Wheels Out')
 
     def wheels_stop(self):
         # TODO Stop motors
-        pass
+        subsystems.SERIAL.fire_event('Wheels Stop')
 
     def hatch_punch_out(self):
         # TODO send air to piston

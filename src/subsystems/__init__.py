@@ -56,5 +56,6 @@ LEDS = None
 DRIVETRAIN = None
 PAYLOAD = None
 ELEVATOR = None
+SERIAL = None
 
 JOYSTICK = None
