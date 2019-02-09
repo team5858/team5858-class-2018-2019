@@ -14,6 +14,7 @@ from subsystems.elevator import Elevator
 from subsystems.leds import LEDs
 from subsystems.payload_manipulator import Payload
 from subsystems.serial_events import SerialEvent
+from subsystems.pigeon_imu import Pigeon
 
 
 class HurricaneRobot(CommandBasedRobot):
@@ -34,6 +35,7 @@ class HurricaneRobot(CommandBasedRobot):
         subsystems.ELEVATOR = Elevator()
         subsystems.PAYLOAD = Payload()
         subsystems.SERIAL = SerialEvent()
+        subsystems.PIGEON = Pigeon()
         self.compressor = wpilib.Compressor(0)
         self.compressor.setClosedLoopControl(True)
         """

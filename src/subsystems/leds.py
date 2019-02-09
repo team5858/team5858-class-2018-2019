@@ -8,7 +8,7 @@ from wpilib.command.subsystem import Subsystem
 # TODO move these IDs to __init__
 
 DIO_LED_RED = 0
-DIO_LED_GREEN = 2
+DIO_LED_GREEN = 1
 
 
 class LEDs(Subsystem):

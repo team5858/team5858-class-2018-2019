@@ -57,5 +57,6 @@ DRIVETRAIN = None
 PAYLOAD = None
 ELEVATOR = None
 SERIAL = None
+PIGEON = None
 
 JOYSTICK = None
