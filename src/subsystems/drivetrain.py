@@ -68,7 +68,9 @@ class Drivetrain(Subsystem):
         set_motor2(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake)
         self.rightfollower.setInverted(True)
 
-        self.DS = wpilib.DoubleSolenoid(1, 2)
+        self.DS = wpilib.DoubleSolenoid(0, 1)
+        #self.DS2 = wpilib.DoubleSolenoid(2, 3)
+
 
         self.leftfollower.follow(self.leftleader)
         self.rightfollower.follow(self.rightleader)
@@ -105,5 +107,9 @@ class Drivetrain(Subsystem):
     def set_gear(self, direction):
         if direction:
             self.DS.set(DoubleSolenoid.Value.kForward)
+            subsystems.SERIAL.fire_event('High gear')
+            #self.DS2.set(DoubleSolenoid.Value.kForward)
         else:
             self.DS.set(DoubleSolenoid.Value.kReverse)
+            subsystems.SERIAL.fire_event('Low gear')
+            #self.DS2.set(DoubleSolenoid.Value.kReverse)

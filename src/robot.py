@@ -34,7 +34,8 @@ class HurricaneRobot(CommandBasedRobot):
         subsystems.ELEVATOR = Elevator()
         subsystems.PAYLOAD = Payload()
         subsystems.SERIAL = SerialEvent()
-
+        self.compressor = wpilib.Compressor(0)
+        self.compressor.setClosedLoopControl(True)
         """
         Since OI instantiates commands and commands need access to subsystems,
         OI must be initialized after subsystems.
