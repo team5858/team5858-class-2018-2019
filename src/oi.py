@@ -23,7 +23,8 @@ TODO: map out these controls
 from wpilib.buttons.joystickbutton import JoystickButton
 from wpilib.joystick import Joystick
 
-from commands.gear_shift import gear_shift
+from commands import gear_shift
+from commands import set_arm_pos
 
 
 def get_joystick():
@@ -38,7 +39,11 @@ def get_joystick():
     # TODO how are we going to count taps for position?
 
     trigger = JoystickButton(joystick=joystick, buttonNumber=5)
-    trigger.whenPressed(gear_shift(True))
-    trigger.whenReleased(gear_shift(False))
+    trigger.whenPressed(gear_shift.gear_shift(True))
+    trigger.whenReleased(gear_shift.gear_shift(False))
+
+    rtrigger = JoystickButton(joystick=joystick, buttonNumber=6)
+    rtrigger.whenPressed(set_arm_pos.SetArmPosition(1.0))
+    rtrigger.whenReleased(set_arm_pos.SetArmPosition(0.0))
 
     return joystick

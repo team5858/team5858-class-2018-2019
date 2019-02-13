@@ -2,6 +2,8 @@ import wpilib
 from wpilib.command.subsystem import Subsystem
 import subsystems
 from ctre.wpi_talonsrx import WPI_TalonSRX
+from wpilib import SmartDashboard
+from ctre import FeedbackDevice
 CAN_ELBOW_LEADER = 3
 CAN_ELBOW_FOLLOWER = 2
 CAN_BALL_INTAKE = 7
@@ -26,10 +28,13 @@ class Payload(Subsystem):
         self.elbowleader = WPI_TalonSRX(CAN_ELBOW_LEADER)
         self.elbowleader.setInverted(False)
         set_motor2(self.elbowleader, WPI_TalonSRX.NeutralMode.Brake)
+        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
+        self.elbowleader.setSelectedSensorPosition(0, 0, 0)
 
         self.elbowfollower = WPI_TalonSRX(CAN_ELBOW_FOLLOWER)
         self.elbowfollower.setInverted(False)
         set_motor2(self.elbowfollower, WPI_TalonSRX.NeutralMode.Brake)
+        self.elbowfollower.follow(self.elbowleader)
 
     def wheels_in(self):
         # TODO Spin motors to bring ball in
@@ -51,8 +56,11 @@ class Payload(Subsystem):
         # TODO turn off air to piston
         pass
     
-    def elbow_down(self):
-        self.elbowleader.speed = 1
+    def set_position(self,pos):
+        self.elbowleader.set(pos)
 
-    def elbow_up(self):
-        self.elbowleader.speed = 0
+    def print_position(self):
+        SmartDashboard.putNumber("elbowposition",self.elbowleader.getSelectedSensorPosition(0))
+
+
+

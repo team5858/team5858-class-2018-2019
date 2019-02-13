@@ -48,11 +48,11 @@ class Elevator(Subsystem):
     def setPID(self):
         # This will set the PIDs, velocity, and acceleration, values from the
         # preference table so we can tune them easily
-        self.elevator.config_kP(0, self.prefs.getFloat("Elevator P", 0), 0)
         self.elevator.config_kI(0, self.prefs.getFloat("Elevator I", 0), 0)
         self.elevator.config_kD(0, self.prefs.getFloat("Elevator D", 0), 0)
         self.elevator.configMotionCruiseVelocity(
             self.prefs.getInt("Elevator Velocity", 0))
+        self.elevator.config_kP(0, self.prefs.getFloat("Elevator P", 0), 0)
         self.elevator.configMotionAcceleration(
             self.prefs.getInt("Elevator Acceleration", 0))
 
@@ -63,3 +63,8 @@ class Elevator(Subsystem):
         # SmartDashboard.putNumber(
         #    "Elevator Velocity", self.elevator.getSelectedSensorVelocity())
         pass
+
+
+
+
+
