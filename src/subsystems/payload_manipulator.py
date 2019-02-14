@@ -28,7 +28,7 @@ class Payload(Subsystem):
         self.elbowleader = WPI_TalonSRX(CAN_ELBOW_LEADER)
         self.elbowleader.setInverted(False)
         set_motor2(self.elbowleader, WPI_TalonSRX.NeutralMode.Brake)
-        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
+        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0)
         self.elbowleader.setSelectedSensorPosition(0, 0, 0)
 
         self.elbowfollower = WPI_TalonSRX(CAN_ELBOW_FOLLOWER)
@@ -57,10 +57,12 @@ class Payload(Subsystem):
         pass
     
     def set_position(self,pos):
-        self.elbowleader.set(pos)
+        #self.elbowleader.set(pos)
+        self.elbowleader.set(mode=WPI_TalonSRX.ControlMode.Position, demand0=pos)
+        #self.elbowleader.set(mode=WPI_TalonSRX.ControlMode.PercentOutput, demand0=pos)
+
+    def get_position(self):
+        return self.elbowleader.getSelectedSensorPosition(0)
 
     def print_position(self):
         SmartDashboard.putNumber("elbowposition",self.elbowleader.getSelectedSensorPosition(0))
-
-
-

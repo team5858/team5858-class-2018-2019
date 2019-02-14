@@ -43,7 +43,7 @@ def get_joystick():
     trigger.whenReleased(gear_shift.gear_shift(False))
 
     rtrigger = JoystickButton(joystick=joystick, buttonNumber=6)
-    rtrigger.whenPressed(set_arm_pos.SetArmPosition(1.0))
+    rtrigger.whenPressed(set_arm_pos.SetArmPosition(1024.0))
     rtrigger.whenReleased(set_arm_pos.SetArmPosition(0.0))
 
     return joystick

@@ -54,8 +54,8 @@ class HurricaneRobot(CommandBasedRobot):
 
     # WARNING. We need to implement the teleopInit just in case. The field *might* require that we do so (might kill
     # the autonomous command)
-    def teleopPeriodic(self):
-        
+    #def teleopPeriodic(self):
+    #    pass
 
 if __name__ == "__main__":
     wpilib.run(HurricaneRobot)

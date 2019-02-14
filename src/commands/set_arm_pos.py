@@ -16,6 +16,13 @@ class SetArmPosition(Command):
 
     def initialize(self):
         subsystems.PAYLOAD.set_position(self.pos)
-        subsystems.PAYLOAD.print_position()
+        print (subsystems.PAYLOAD.get_position())
+        #subsystems.PAYLOAD.print_position()
+
+    def execute(self):
+        subsystems.PAYLOAD.set_position(self.pos)
+        print(subsystems.PAYLOAD.get_position())
+        #subsystems.PAYLOAD.print_position()
+
     def isFinished(self):
-        return True
+        return subsystems.PAYLOAD.get_position() == self.pos
