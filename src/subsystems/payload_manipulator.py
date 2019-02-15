@@ -4,6 +4,9 @@ import subsystems
 from ctre.wpi_talonsrx import WPI_TalonSRX
 from wpilib import SmartDashboard
 from ctre import FeedbackDevice
+from wpilib import Preferences
+from ctre import ControlMode
+
 CAN_ELBOW_LEADER = 3
 CAN_ELBOW_FOLLOWER = 2
 CAN_BALL_INTAKE = 7
@@ -24,12 +27,15 @@ class Payload(Subsystem):
         super().__init__("Payload")
         # TODO Two motors ... one leader, one follower
         # TODO Two limit switches on the follower
+        self.prefs = Preferences.getInstance()
 
         self.elbowleader = WPI_TalonSRX(CAN_ELBOW_LEADER)
         self.elbowleader.setInverted(False)
         set_motor2(self.elbowleader, WPI_TalonSRX.NeutralMode.Brake)
-        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0)
+        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
         self.elbowleader.setSelectedSensorPosition(0, 0, 0)
+        self.elbowleader.selectProfileSlot(0, 0)
+        self.elbowleader.setSensorPhase(True)
 
         self.elbowfollower = WPI_TalonSRX(CAN_ELBOW_FOLLOWER)
         self.elbowfollower.setInverted(False)
@@ -58,11 +64,21 @@ class Payload(Subsystem):
     
     def set_position(self,pos):
         #self.elbowleader.set(pos)
-        self.elbowleader.set(mode=WPI_TalonSRX.ControlMode.Position, demand0=pos)
+        self.elbowleader.set(mode = ControlMode.MotionMagic, demand0=pos)
         #self.elbowleader.set(mode=WPI_TalonSRX.ControlMode.PercentOutput, demand0=pos)
+        #self.elbowleader.set(mode=WPI_TalonSRX.ControlMode.Position, demand0=pos)
+
+    def set_values(self):
+        self.elbowleader.config_kP(0, self.prefs.getFloat("Elbow P", 0.1), 0)
+        self.elbowleader.config_kI(0, self.prefs.getFloat("Elbow I", 0), 0)
+        self.elbowleader.config_kD(0, self.prefs.getFloat("Elbow D", 0), 0)
+        #self.elbowleader.configMotionCruiseVelocity(self.prefs.getFloat("Elbow Velocity", 100), 0)
+        self.elbowleader.configMotionCruiseVelocity(int(self.prefs.getFloat("ElbowVel", 100)), 0)
+        self.elbowleader.configMotionAcceleration(int(self.prefs.getFloat("ElbowAcc", 100)), 0)
 
     def get_position(self):
         return self.elbowleader.getSelectedSensorPosition(0)
 
     def print_position(self):
         SmartDashboard.putNumber("elbowposition",self.elbowleader.getSelectedSensorPosition(0))
+        SmartDashboard.putNumber("elbowVelocity", self.elbowleader.getSelectedSensorVelocity(0))
