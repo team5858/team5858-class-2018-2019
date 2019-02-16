@@ -6,6 +6,7 @@ from wpilib import SmartDashboard
 from ctre import FeedbackDevice
 from wpilib import Preferences
 from ctre import ControlMode
+from commands.ball_z import BallZ
 
 CAN_ELBOW_LEADER = 3
 CAN_ELBOW_FOLLOWER = 2
@@ -41,6 +42,13 @@ class Payload(Subsystem):
         self.elbowfollower.setInverted(False)
         set_motor2(self.elbowfollower, WPI_TalonSRX.NeutralMode.Brake)
         self.elbowfollower.follow(self.elbowleader)
+
+    def initDefaultCommand(self):
+        self.setDefaultCommand(BallZ())
+
+    def set_wheels_speed(self,speed):
+        #print (speed)
+        pass
 
     def wheels_in(self):
         # TODO Spin motors to bring ball in

@@ -7,6 +7,7 @@ TODO: map out these controls
   LeftStick:  turn left, right
   RightStick: forward, backwards
 
+
   ??:           Gear shift. Hold for low, release for high.
   HatUpDown:    Click N times for elevator level N.
   HatLeftRight: Click N times for wrist position N.
@@ -24,7 +25,8 @@ from wpilib.buttons.joystickbutton import JoystickButton
 from wpilib.joystick import Joystick
 
 from commands import gear_shift
-from commands import set_arm_pos
+from commands.set_elv_pay import SetElvPay
+from commands.hatch_punch import hatch_punch
 
 
 def get_joystick():
@@ -42,8 +44,18 @@ def get_joystick():
     trigger.whenPressed(gear_shift.gear_shift(True))
     trigger.whenReleased(gear_shift.gear_shift(False))
 
-    rtrigger = JoystickButton(joystick=joystick, buttonNumber=6)
-    rtrigger.whenPressed(set_arm_pos.SetArmPosition(1024.0))
-    rtrigger.whenReleased(set_arm_pos.SetArmPosition(0.0))
+   # rtrigger = JoystickButton(joystick=joystick, buttonNumber=6)
+   # rtrigger.whenPressed(set_arm_pos.SetArmPosition(1024.0))
+   # rtrigger.whenReleased(set_arm_pos.SetArmPosition(0.0))
+
+    buttonB = JoystickButton(joystick=joystick, buttonNumber=2)
+    buttonB.whenPressed(hatch_punch(True))
+    buttonB.whenReleased(hatch_punch(False))
+
+    buttonX = JoystickButton(joystick=joystick, buttonNumber=3)
+    buttonX.whenPressed(SetElvPay(0,0))
+
+    buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
+    buttonA.whenPressed(SetElvPay(0,0))
 
     return joystick
