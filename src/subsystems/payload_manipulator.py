@@ -7,6 +7,7 @@ from ctre import FeedbackDevice
 from wpilib import Preferences
 from ctre import ControlMode
 from commands.ball_z import BallZ
+from  wpilib.doublesolenoid import DoubleSolenoid
 
 CAN_ELBOW_LEADER = 3
 CAN_ELBOW_FOLLOWER = 2
@@ -43,6 +44,11 @@ class Payload(Subsystem):
         set_motor2(self.elbowfollower, WPI_TalonSRX.NeutralMode.Brake)
         self.elbowfollower.follow(self.elbowleader)
 
+
+        self.DS = wpilib.DoubleSolenoid(2, 3)
+
+        self.set_values()
+
     def initDefaultCommand(self):
         self.setDefaultCommand(BallZ())
 
@@ -63,12 +69,13 @@ class Payload(Subsystem):
         subsystems.SERIAL.fire_event('Wheels Stop')
 
     def hatch_punch_out(self):
-        # TODO send air to piston
-        pass
+        self.DS.set(DoubleSolenoid.Value.kForward)
+
 
     def hatch_punch_in(self):
         # TODO turn off air to piston
-        pass
+        self.DS.set(DoubleSolenoid.Value.kReverse)
+
     
     def set_position(self,pos):
         #self.elbowleader.set(pos)

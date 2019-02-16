@@ -34,8 +34,10 @@ class Elevator(Subsystem):
 
         # The preference table is used to get values to the code while the
         # robot is running, useful
-        #self.prefs = Preferences.getInstance()
+        self.prefs = Preferences.getInstance()
         # for tuning the PIDs and stuff
+
+        self.setPID()
 
     def elevator_up_down(self, position):
         # self.elevator.set(ControlMode.MotionMagic, position) # Will wet the elevator to whatver setpoint is input # commneted so we can run from
@@ -50,10 +52,10 @@ class Elevator(Subsystem):
         self.elevatorleader.config_kI(0, self.prefs.getFloat("Elevator I", 0), 0)
         self.elevatorleader.config_kD(0, self.prefs.getFloat("Elevator D", 0), 0)
         self.elevatorleader.configMotionCruiseVelocity(
-            self.prefs.getInt("Elevator Velocity", 0))
+            int(self.prefs.getInt("Elevator Velocity", 100)), 0)
         self.elevatorleader.config_kP(0, self.prefs.getFloat("Elevator P", 0), 0)
         self.elevatorleader.configMotionAcceleration(
-            self.prefs.getInt("Elevator Acceleration", 0))
+            int(self.prefs.getInt("Elevator Acceleration", 100)), 0)
 
     def publishData(self):
         # This will print the position and velocity to the smartDashboard

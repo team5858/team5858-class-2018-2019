@@ -36,6 +36,7 @@ def get_joystick():
     """
 
     joystick = Joystick(0)
+    joystick2 = Joystick(1)
 
     # TODO lots of commands to map here
     # TODO how are we going to count taps for position?
@@ -58,4 +59,9 @@ def get_joystick():
     buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
     buttonA.whenPressed(SetElvPay(0,0))
 
+    button10 = JoystickButton(joystick=joystick2, buttonNumber=10)
+    button10.whenPressed(SetElvPay(0, 0))
+
+    button12 = JoystickButton(joystick=joystick2, buttonNumber=12)
+    button12.whenPressed(SetElvPay(0, 0))
     return joystick
