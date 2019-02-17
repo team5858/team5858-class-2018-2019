@@ -14,10 +14,9 @@ class Drive(Command):
 
         self.requires(subsystems.DRIVETRAIN)
 
+    def execute(self):
+        subsystems.DRIVETRAIN.stickdrive()
+
     def isFinished(self):
         # This is always running
         return False
-
-
-    def execute(self):
-        subsystems.DRIVETRAIN.stickdrive()

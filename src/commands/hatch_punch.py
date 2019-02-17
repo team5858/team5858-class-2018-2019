@@ -10,7 +10,7 @@ class hatch_punch(Command):
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        if self._out :
+        if self._out:
             subsystems.PAYLOAD.hatch_punch_out()
         else:
             subsystems.PAYLOAD.hatch_punch_in()

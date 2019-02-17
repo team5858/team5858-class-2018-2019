@@ -4,7 +4,6 @@ Shift gears (high or low)
 from wpilib.command import Command
 import subsystems
 
-
 class gear_shift(Command):
     """Shift gears"""
 

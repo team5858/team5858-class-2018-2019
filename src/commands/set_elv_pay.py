@@ -4,7 +4,6 @@ Take a ball in
 from wpilib.command import Command
 import subsystems
 
-
 class SetElvPay (Command):
     """stow arm """
 

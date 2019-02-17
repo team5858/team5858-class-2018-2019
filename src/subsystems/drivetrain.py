@@ -37,14 +37,13 @@ PNU_LEFT_LOW = 2
 PNU_RIGHT_HIGH = 3
 PNU_RIGHT_LOW = 4
 
-
-def set_motor2(motor, brake):
+def set_motor2(motor, brake, inverted):
     motor.enableCurrentLimit(False)
     motor.configPeakOutputForward(1, 0)
     motor.configPeakOutputReverse(-1, 0)
     motor.setNeutralMode(brake)
     motor.configOpenLoopRamp(0, 0)
-
+    motor.setInverted(inverted)
 
 class Drivetrain(Subsystem):
     """Functions for the drivetrain"""
@@ -53,27 +52,20 @@ class Drivetrain(Subsystem):
         super().__init__("Drivetrain")
 
         self.leftleader = WPI_TalonSRX(CAN_LEFT_LEADER)
-        self.leftleader.setInverted(False)
-        set_motor2(self.leftleader, WPI_TalonSRX.NeutralMode.Brake)
+        set_motor2(self.leftleader, WPI_TalonSRX.NeutralMode.Brake, False)
 
         self.leftfollower = WPI_VictorSPX(CAN_LEFT_FOLLOWER)
-        self.leftfollower.setInverted(False)
-        set_motor2(self.leftfollower, WPI_VictorSPX.NeutralMode.Brake)
+        set_motor2(self.leftfollower, WPI_VictorSPX.NeutralMode.Brake, False)
+        self.leftfollower.follow(self.leftleader)
 
         self.rightleader = WPI_TalonSRX(CAN_RIGHT_LEADER)
-        set_motor2(self.rightleader, WPI_TalonSRX.NeutralMode.Brake)
-        self.rightleader.setInverted(True)
+        set_motor2(self.rightleader, WPI_TalonSRX.NeutralMode.Brake, True)
 
         self.rightfollower = WPI_VictorSPX(CAN_RIGHT_FOLLOWER)
-        set_motor2(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake)
-        self.rightfollower.setInverted(True)
+        set_motor2(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake, True)
+        self.rightfollower.follow(self.rightleader)
 
         self.DS = wpilib.DoubleSolenoid(0, 1)
-        #self.DS2 = wpilib.DoubleSolenoid(2, 3)
-
-
-        self.leftfollower.follow(self.leftleader)
-        self.rightfollower.follow(self.rightleader)
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
         self.drive.maxOutput = 0.8
@@ -88,18 +80,17 @@ class Drivetrain(Subsystem):
             self.drive.maxOutput = 0.8
         # print(x)
         y = stick.getY()
-        # self.drive.arcadeDrive(-(x*x*x),(y*y*y))
         self.drive.arcadeDrive(-x, y)
-        P = self.leftleader.getQuadraturePosition()
-        P2 = self.rightleader.getQuadraturePosition()
+
+        #P = self.leftleader.getQuadraturePosition()
+        #P2 = self.rightleader.getQuadraturePosition()
         #print (" Left " +str (P) + " Right " +str (P2))
-        P3 = self.leftleader.getMotorOutputVoltage()
-        P4 = self.rightleader.getMotorOutputVoltage()
+        #P3 = self.leftleader.getMotorOutputVoltage()
+        #P4 = self.rightleader.getMotorOutputVoltage()
         #print(" Left " + str(P3) + " Right " + str(P4))
-        P5 = self.leftleader.getOutputCurrent()
-        P6 = self.rightleader.getOutputCurrent()
+        #P5 = self.leftleader.getOutputCurrent()
+        #P6 = self.rightleader.getOutputCurrent()
         #print(" Left " + str(P5) + " Right " + str(P6))
-        #self.drive.arcadeDrive(-x, y)
 
     def initDefaultCommand(self):
         self.setDefaultCommand(Drive())
@@ -108,8 +99,6 @@ class Drivetrain(Subsystem):
         if direction:
             self.DS.set(DoubleSolenoid.Value.kForward)
             subsystems.SERIAL.fire_event('High gear')
-            #self.DS2.set(DoubleSolenoid.Value.kForward)
         else:
             self.DS.set(DoubleSolenoid.Value.kReverse)
             subsystems.SERIAL.fire_event('Low gear')
-            #self.DS2.set(DoubleSolenoid.Value.kReverse)
