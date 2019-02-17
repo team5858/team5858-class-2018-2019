@@ -43,9 +43,12 @@ class Elevator(Subsystem):
 
         self.setPID()
 
-    def elevator_up_down(self, position):
+    def elevator_pos(self, position):
         position = self.prefs.getFloat("Elevator Position", 0)
         self.elevatorleader.set(ControlMode.MotionMagic, position)
+
+    def elevator_speed(self, speed):
+        self.elevatorleader.set(ControlMode.PercentOutput, speed)
 
     def setPID(self):
         # This will set the PIDs, velocity, and acceleration, values from the

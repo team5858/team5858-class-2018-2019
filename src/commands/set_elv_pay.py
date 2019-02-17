@@ -17,7 +17,7 @@ class SetElvPay (Command):
 
     def initialize(self):
         subsystems.PAYLOAD.set_position(self.pay_pos)
-        subsystems.ELEVATOR.elevator_up_down(self.elv_pos)
+        subsystems.ELEVATOR.elevator_pos(self.elv_pos)
 
     def isFinished(self):
         return subsystems.PAYLOAD.get_position() == self.pay_pos and subsystems.ELEVATOR.get_position() == self.elv_pos

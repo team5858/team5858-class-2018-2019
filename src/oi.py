@@ -27,7 +27,8 @@ from wpilib.joystick import Joystick
 from commands import gear_shift
 from commands.set_elv_pay import SetElvPay
 from commands.hatch_punch import hatch_punch
-
+from commands.set_elv_speed import SetElvSpeed
+from commands.set_pay_speed import SetPaySpeed
 
 def get_joystick():
     """
@@ -64,4 +65,20 @@ def get_joystick():
 
     button12 = JoystickButton(joystick=joystick2, buttonNumber=12)
     button12.whenPressed(SetElvPay(0, 0))
+
+    buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
+    buttonB.whenPressed(SetElvSpeed(0.3))
+    buttonB.whenReleased(SetElvSpeed(0.0))
+
+    buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
+    buttonA.whenPressed(SetElvSpeed(-0.3))
+    buttonA.whenReleased(SetElvSpeed(0.0))
+
+    buttonX = JoystickButton(joystick=joystick2, buttonNumber=3)
+    buttonX.whenPressed(SetElvSpeed(0.3))
+    buttonX.whenReleased(SetElvSpeed(0.0))
+
+    buttonY = JoystickButton(joystick=joystick2, buttonNumber=4)
+    buttonY.whenPressed(SetElvSpeed(-0.3))
+    buttonY.whenReleased(SetElvSpeed(0.0))
     return joystick

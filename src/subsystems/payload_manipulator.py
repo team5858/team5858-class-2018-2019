@@ -65,6 +65,9 @@ class Payload(Subsystem):
     def set_position(self,pos):
         self.elbowleader.set(mode = ControlMode.MotionMagic, demand0=pos)
 
+    def set_speed(self, speed):
+        self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=speed)
+
     def set_values(self):
         self.elbowleader.config_kP(0, self.prefs.getFloat("Elbow P", 0.1), 0)
         self.elbowleader.config_kI(0, self.prefs.getFloat("Elbow I", 0), 0)
