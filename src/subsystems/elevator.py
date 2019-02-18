@@ -31,6 +31,7 @@ class Elevator(Subsystem):
         set_motor2(self.elevatorleader, TalonSRX.NeutralMode.Brake, False)
         self.elevatorleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
         self.elevatorleader.setSelectedSensorPosition(0, 0, 0)
+        self.elevatorleader.setSensorPhase(True)
 
         self.elevatorfollower = TalonSRX(CAN_ELEVATOR_FOLLOWER)
         set_motor2(self.elevatorfollower, TalonSRX.NeutralMode.Brake, False)
@@ -41,16 +42,16 @@ class Elevator(Subsystem):
         self.prefs = Preferences.getInstance()
         # for tuning the PIDs and stuff
 
-        self.setPID()
+        self.set_values()
 
-    def elevator_pos(self, position):
+    def set_position(self, position):
         position = self.prefs.getFloat("Elevator Position", 0)
         self.elevatorleader.set(ControlMode.MotionMagic, position)
 
     def elevator_speed(self, speed):
         self.elevatorleader.set(ControlMode.PercentOutput, speed)
 
-    def setPID(self):
+    def set_values(self):
         # This will set the PIDs, velocity, and acceleration, values from the
         # preference table so we can tune them easily
         self.elevatorleader.config_kP(0, self.prefs.getFloat("Elevator P", 0.1), 0)
@@ -61,12 +62,12 @@ class Elevator(Subsystem):
         self.elevatorleader.configMotionAcceleration(
             int(self.prefs.getInt("Elevator Acceleration", 1024)), 0)
 
-    def publishData(self):
+    def publish_data(self):
         # This will print the position and velocity to the smartDashboard
-        # SmartDashboard.putNumber(
-        #    "Elevator Position", self.elevator.getSelectedSensorPosition())
-        # SmartDashboard.putNumber(
-        #    "Elevator Velocity", self.elevator.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("Elevator Position", self.elevatorleader.getSelectedSensorPosition())
+        SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("Elevator Current", self.elevatorleader.getOutputCurrent())
+        SmartDashboard.putNumber("Elevator Output", self.elevatorleader.getMotorOutputPercent())
         pass
 
     def get_position(self):

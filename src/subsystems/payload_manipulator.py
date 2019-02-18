@@ -1,11 +1,12 @@
 import wpilib
 from wpilib.command.subsystem import Subsystem
 import subsystems
-from ctre.wpi_talonsrx import WPI_TalonSRX
+from ctre import TalonSRX
 from wpilib import SmartDashboard
 from ctre import FeedbackDevice
 from wpilib import Preferences
 from ctre import ControlMode
+from wpilib import DoubleSolenoid
 from commands.ball_z import BallZ
 from  wpilib.doublesolenoid import DoubleSolenoid
 
@@ -31,21 +32,21 @@ class Payload(Subsystem):
         # TODO Two limit switches on the leader
         self.prefs = Preferences.getInstance()
 
-        self.elbowleader = WPI_TalonSRX(CAN_ELBOW_LEADER)
-        set_motor2(self.elbowleader, WPI_TalonSRX.NeutralMode.Brake, False)
+        self.elbowleader = TalonSRX(CAN_ELBOW_LEADER)
+        set_motor2(self.elbowleader, TalonSRX.NeutralMode.Brake, False)
         self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
         self.elbowleader.setSelectedSensorPosition(0, 0, 0)
         self.elbowleader.selectProfileSlot(0, 0)
         self.elbowleader.setSensorPhase(True)
 
-        self.elbowfollower = WPI_TalonSRX(CAN_ELBOW_FOLLOWER)
-        set_motor2(self.elbowfollower, WPI_TalonSRX.NeutralMode.Brake, False)
+        self.elbowfollower = TalonSRX(CAN_ELBOW_FOLLOWER)
+        set_motor2(self.elbowfollower, TalonSRX.NeutralMode.Brake, False)
         self.elbowfollower.follow(self.elbowleader)
 
-        self.baller = WPI_TalonSRX(CAN_BALL_INTAKE)
-        set_motor2(self.baller, WPI_TalonSRX.NeutralMode.Brake, False)
+        self.baller = TalonSRX(CAN_BALL_INTAKE)
+        set_motor2(self.baller, TalonSRX.NeutralMode.Brake, False)
 
-        self.DS = wpilib.DoubleSolenoid(2, 3)
+        self.DS = DoubleSolenoid(2, 3)
 
         self.set_values()
 
@@ -53,7 +54,7 @@ class Payload(Subsystem):
         self.setDefaultCommand(BallZ())
 
     def set_wheels_speed(self,speed):
-        self.baller.set(speed)
+        self.baller.set(ControlMode.PercentOutput, speed)
 
     def hatch_punch_out(self):
         subsystems.SERIAL.fire_event('Punch It')
@@ -63,21 +64,23 @@ class Payload(Subsystem):
         self.DS.set(DoubleSolenoid.Value.kReverse)
     
     def set_position(self,pos):
-        self.elbowleader.set(mode = ControlMode.MotionMagic, demand0=pos)
+        self.elbowleader.set(mode=ControlMode.MotionMagic, demand0=pos)
 
     def set_speed(self, speed):
         self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=speed)
 
     def set_values(self):
-        self.elbowleader.config_kP(0, self.prefs.getFloat("Elbow P", 0.1), 0)
+        self.elbowleader.config_kP(0, self.prefs.getFloat("Elbow P", 0), 0)
         self.elbowleader.config_kI(0, self.prefs.getFloat("Elbow I", 0), 0)
         self.elbowleader.config_kD(0, self.prefs.getFloat("Elbow D", 0), 0)
-        self.elbowleader.configMotionCruiseVelocity(int(self.prefs.getFloat("ElbowVel", 1024)), 0)
-        self.elbowleader.configMotionAcceleration(int(self.prefs.getFloat("ElbowAcc", 1024)), 0)
+        self.elbowleader.configMotionCruiseVelocity(int(self.prefs.getFloat("Elbow Velocity", 1024)), 0)
+        self.elbowleader.configMotionAcceleration(int(self.prefs.getFloat("Elbow Acceleration", 1024)), 0)
 
     def get_position(self):
         return self.elbowleader.getSelectedSensorPosition(0)
 
-    def print_position(self):
-        SmartDashboard.putNumber("elbowposition",self.elbowleader.getSelectedSensorPosition(0))
+    def publish_data(self):
+        SmartDashboard.putNumber("elbowPosition",self.elbowleader.getSelectedSensorPosition(0))
         SmartDashboard.putNumber("elbowVelocity", self.elbowleader.getSelectedSensorVelocity(0))
+        SmartDashboard.putNumber("elbowCurrent", self.elbowleader.getOutputCurrent())
+        SmartDashboard.putNumber("elbowOutput", self.elbowleader.getMotorOutputPercent())
