@@ -29,9 +29,9 @@ import subsystems
 
 # TODO move these IDs to the __init__
 CAN_LEFT_LEADER = 4  # TalonSRX with CAN ID 4
-CAN_LEFT_FOLLOWER = 10  # VictorSPX with CAN ID 9
-CAN_RIGHT_LEADER = 5  # TalonSRX with CAN ID 5
-CAN_RIGHT_FOLLOWER = 9  # VictorSPX with CAN ID 10
+CAN_LEFT_FOLLOWER = 1  # VictorSPX with CAN ID 9
+CAN_RIGHT_LEADER = 6  # TalonSRX with CAN ID 5
+CAN_RIGHT_FOLLOWER = 2  # VictorSPX with CAN ID 10
 PNU_LEFT_HIGH = 1
 PNU_LEFT_LOW = 2
 PNU_RIGHT_HIGH = 3

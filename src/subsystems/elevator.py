@@ -1,13 +1,14 @@
 from ctre import ControlMode
 from ctre import FeedbackDevice
 from ctre import TalonSRX
+from ctre import VictorSPX
 from wpilib import Preferences
 from wpilib import SmartDashboard
 import wpilib
 from wpilib.command.subsystem import Subsystem
 
-CAN_ELEVATOR_LEADER = 1
-CAN_ELEVATOR_FOLLOWER = 6
+CAN_ELEVATOR_LEADER = 5
+CAN_ELEVATOR_FOLLOWER = 9
 
 def set_motor2(motor, brake, inverted):
     motor.enableCurrentLimit(False)
@@ -29,11 +30,11 @@ class Elevator(Subsystem):
         # Initializes the elevator Talon, put it as one for now
         self.elevatorleader = TalonSRX(CAN_ELEVATOR_LEADER)
         set_motor2(self.elevatorleader, TalonSRX.NeutralMode.Brake, False)
-        self.elevatorleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
+        self.elevatorleader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0)
         self.elevatorleader.setSelectedSensorPosition(0, 0, 0)
         self.elevatorleader.setSensorPhase(True)
 
-        self.elevatorfollower = TalonSRX(CAN_ELEVATOR_FOLLOWER)
+        self.elevatorfollower = VictorSPX(CAN_ELEVATOR_FOLLOWER)
         set_motor2(self.elevatorfollower, TalonSRX.NeutralMode.Brake, False)
         self.elevatorfollower.follow(self.elevatorleader)
 
@@ -64,11 +65,10 @@ class Elevator(Subsystem):
 
     def publish_data(self):
         # This will print the position and velocity to the smartDashboard
-        SmartDashboard.putNumber("Elevator Position", self.elevatorleader.getSelectedSensorPosition())
-        SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity())
+        SmartDashboard.putNumber("Elevator Position", self.elevatorleader.getSelectedSensorPosition(0))
+        SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity(0))
         SmartDashboard.putNumber("Elevator Current", self.elevatorleader.getOutputCurrent())
         SmartDashboard.putNumber("Elevator Output", self.elevatorleader.getMotorOutputPercent())
-        pass
 
     def get_position(self):
         return self.elevatorleader.getSelectedSensorPosition(0)

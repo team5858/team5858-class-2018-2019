@@ -16,5 +16,8 @@ class SetElvSpeed(Command):
     def initialize(self):
         subsystems.ELEVATOR.elevator_speed(self.speed)
 
+    def execute(self):
+        subsystems.ELEVATOR.publish_data()
+
     def isFinished(self):
-        return True
+        return False
