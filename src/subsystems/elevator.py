@@ -6,7 +6,7 @@ from wpilib import Preferences
 from wpilib import SmartDashboard
 import wpilib
 from wpilib.command.subsystem import Subsystem
-
+from commands.elv_zero import elv_zero
 CAN_ELEVATOR_LEADER = 5
 CAN_ELEVATOR_FOLLOWER = 9
 
@@ -43,6 +43,8 @@ class Elevator(Subsystem):
         self.prefs = Preferences.getInstance()
         # for tuning the PIDs and stuff
 
+        self.elevator_zero = False
+
         self.set_values()
 
     def set_position(self, position):
@@ -69,6 +71,17 @@ class Elevator(Subsystem):
         SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity(0))
         SmartDashboard.putNumber("Elevator Current", self.elevatorleader.getOutputCurrent())
         SmartDashboard.putNumber("Elevator Output", self.elevatorleader.getMotorOutputPercent())
+
+    def check_for_zero(self):
+        if not self.elevator_zero:
+            if self.elevatorleader.isFwdLimitSwitchClosed():
+                self.elevatorleader.setSelectedSensorPosition(0, 0, 0)
+                self.elevator_zero = True
+
+    def initDefaultCommand(self):
+        self.setDefaultCommand(elv_zero())
+
+
 
     def get_position(self):
         return self.elevatorleader.getSelectedSensorPosition(0)

@@ -46,6 +46,8 @@ class Payload(Subsystem):
         self.baller = TalonSRX(CAN_BALL_INTAKE)
         set_motor2(self.baller, TalonSRX.NeutralMode.Brake, False)
 
+        self.elbow_zero = False
+
         self.DS = DoubleSolenoid(2, 3)
 
         self.set_values()
@@ -78,6 +80,14 @@ class Payload(Subsystem):
 
     def get_position(self):
         return self.elbowleader.getSelectedSensorPosition(0)
+
+    def check_for_zero(self):
+        if not self.elbow_zero:
+            if self.elbowleader.isRevLimitSwitchClosed():
+                self.elbowleader.setSelectedSensorPosition(0, 0, 0)
+                self.elbow_zero = True
+            else:
+                self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=- 0.3)
 
     def publish_data(self):
         SmartDashboard.putNumber("elbowPosition",self.elbowleader.getSelectedSensorPosition(0))
