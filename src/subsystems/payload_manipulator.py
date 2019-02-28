@@ -1,7 +1,8 @@
 import wpilib
 from wpilib.command.subsystem import Subsystem
 import subsystems
-from ctre import TalonSRX,VictorSPX
+from ctre import VictorSPX
+from ctre import TalonSRX
 from wpilib import SmartDashboard
 from ctre import FeedbackDevice
 from wpilib import Preferences
@@ -10,9 +11,9 @@ from wpilib import DoubleSolenoid
 from commands.ball_z import BallZ
 from  wpilib.doublesolenoid import DoubleSolenoid
 
-CAN_ELBOW_LEADER = 7
-CAN_ELBOW_FOLLOWER = 10
-CAN_BALL_INTAKE =3
+CAN_ELBOW_LEADER = 7 #3 on practice bot
+CAN_ELBOW_FOLLOWER = 10 #2 on practice bot
+CAN_BALL_INTAKE = 3 #7 on practice bot
 
 def set_motor2(motor, brake, inverted):
     motor.enableCurrentLimit(False)
@@ -40,7 +41,7 @@ class Payload(Subsystem):
         self.elbowleader.setSensorPhase(True)
 
         self.elbowfollower = VictorSPX(CAN_ELBOW_FOLLOWER)
-        set_motor2(self.elbowfollower, TalonSRX.NeutralMode.Brake, False)
+        set_motor2(self.elbowfollower, VictorSPX.NeutralMode.Brake, False)
         self.elbowfollower.follow(self.elbowleader)
 
         self.baller = TalonSRX(CAN_BALL_INTAKE)
@@ -49,7 +50,6 @@ class Payload(Subsystem):
         self.elbow_zero = False
 
         self.DS = DoubleSolenoid(2, 3)
-
         self.set_values()
 
     def initDefaultCommand(self):

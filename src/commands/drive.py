@@ -15,6 +15,7 @@ class Drive(Command):
         self.requires(subsystems.DRIVETRAIN)
 
     def execute(self):
+        subsystems.ELEVATOR.publish_data()
         subsystems.DRIVETRAIN.stickdrive()
 
     def isFinished(self):

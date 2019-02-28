@@ -54,33 +54,44 @@ def get_joystick():
     buttonB.whenPressed(hatch_punch(True))
     buttonB.whenReleased(hatch_punch(False))
 
-    #buttonX = JoystickButton(joystick=joystick, buttonNumber=3)
-    #buttonX.whenPressed(SetElvPay(0, 0))
+    buttonX = JoystickButton(joystick=joystick, buttonNumber=3)
+    buttonX.whenPressed(SetElvPay(0, 0))
 
-    #buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
-    #buttonA.whenPressed(SetElvPay(0, 3000))
+    buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
+    buttonA.whenPressed(SetElvPay(0, 3000))
 
-    #buttonY = JoystickButton(joystick=joystick, buttonNumber=4)
-    #buttonY.whenPressed(SetElvPay(0, 1000))
+    buttonY = JoystickButton(joystick=joystick, buttonNumber=4)
+    buttonY.whenPressed(SetElvPay(0, 1000))
 
     #button12 = JoystickButton(joystick=joystick2, buttonNumber=12)
     #button12.whenPressed(SetElvPay(0, 0))
 
-    buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
-    buttonB.whenPressed(SetElvSpeed(0.5))
-    buttonB.whenReleased(SetElvSpeed(0.0))
+    #buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
+    #buttonB.whenPressed(SetElvSpeed(0.5))
+    #buttonB.whenReleased(SetElvSpeed(0.0))
 
-    buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
-    buttonA.whenPressed(SetElvSpeed(-0.5))
-    buttonA.whenReleased(SetElvSpeed(0.0))
+    #buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
+    #buttonA.whenPressed(SetElvSpeed(-0.5))
+    #buttonA.whenReleased(SetElvSpeed(0.0))
 
     buttonX = JoystickButton(joystick=joystick2, buttonNumber=3)
-    buttonX.whenPressed(SetPaySpeed(0.3))
+    buttonX.whenPressed(SetPaySpeed(0.7))
     buttonX.whenReleased(SetPaySpeed(0.0))
 
     buttonY = JoystickButton(joystick=joystick2, buttonNumber=4)
     buttonY.whenPressed(SetPaySpeed(-0.3))
     buttonY.whenReleased(SetPaySpeed(0.0))
 
+    buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
+    buttonA.whenPressed(SetElvSpeed(0.7))
+    buttonA.whenReleased(SetElvSpeed(0.0))
+
+    buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
+    buttonB.whenPressed(SetElvSpeed(-0.3))
+    buttonB.whenReleased(SetElvSpeed(0.0))
+
+
 
     return joystick
+
+

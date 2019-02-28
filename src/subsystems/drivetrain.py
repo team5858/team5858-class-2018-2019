@@ -28,10 +28,10 @@ import subsystems
 
 
 # TODO move these IDs to the __init__
-CAN_LEFT_LEADER = 4  # TalonSRX with CAN ID 4
-CAN_LEFT_FOLLOWER = 1  # VictorSPX with CAN ID 9
-CAN_RIGHT_LEADER = 6  # TalonSRX with CAN ID 5
-CAN_RIGHT_FOLLOWER = 2  # VictorSPX with CAN ID 10
+CAN_LEFT_LEADER = 4
+CAN_LEFT_FOLLOWER = 1  #10 on practice bot
+CAN_RIGHT_LEADER = 6  #5 on practice bot
+CAN_RIGHT_FOLLOWER = 2  #9 on practice bot
 PNU_LEFT_HIGH = 1
 PNU_LEFT_LOW = 2
 PNU_RIGHT_HIGH = 3
@@ -68,7 +68,7 @@ class Drivetrain(Subsystem):
         self.DS = wpilib.DoubleSolenoid(0, 1)
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
-        self.drive.maxOutput = 0.8
+        self.drive.maxOutput = 0.6
 
     def stickdrive(self):
         """set the motors based on the user inputs"""
@@ -77,7 +77,7 @@ class Drivetrain(Subsystem):
         if x > 0.3 or x < -0.3:
             self.drive.maxOutput = 0.6
         else:
-            self.drive.maxOutput = 0.8
+            self.drive.maxOutput = 0.6
         # print(x)
         y = stick.getY()
         self.drive.arcadeDrive(-x, y)
