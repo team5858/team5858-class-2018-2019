@@ -16,7 +16,6 @@ from subsystems.payload_manipulator import Payload
 from subsystems.serial_events import SerialEvent
 from subsystems.pigeon_imu import Pigeon
 
-
 class HurricaneRobot(CommandBasedRobot):
     """
     The robot starts here. This code sets up the subsystems, joystick triggers,
@@ -45,6 +44,7 @@ class HurricaneRobot(CommandBasedRobot):
         """
         subsystems.JOYSTICK = oi.get_joystick()
         wpilib.CameraServer.launch()
+
 
     def autonomousInit(self):
         """
