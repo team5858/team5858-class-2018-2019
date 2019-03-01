@@ -32,7 +32,7 @@ class Elevator(Subsystem):
         set_motor2(self.elevatorleader, TalonSRX.NeutralMode.Brake, False)
         self.elevatorleader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0)
         self.elevatorleader.setSelectedSensorPosition(0, 0, 0)
-        self.elevatorleader.setSensorPhase(True)
+        self.elevatorleader.setSensorPhase(False)
 
         self.elevatorfollower = VictorSPX(CAN_ELEVATOR_FOLLOWER)
         set_motor2(self.elevatorfollower, TalonSRX.NeutralMode.Brake, False)

@@ -35,7 +35,7 @@ class Payload(Subsystem):
 
         self.elbowleader = TalonSRX(CAN_ELBOW_LEADER)
         set_motor2(self.elbowleader, TalonSRX.NeutralMode.Brake, False)
-        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0)
+        self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0)
         self.elbowleader.setSelectedSensorPosition(0, 0, 0)
         self.elbowleader.selectProfileSlot(0, 0)
         self.elbowleader.setSensorPhase(True)

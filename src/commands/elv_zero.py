@@ -9,8 +9,8 @@ class elv_zero(Command):
         self.requires(subsystems.ELEVATOR)
 
     def execute(self):
-        #subsystems.ELEVATOR.check_for_zero()
-        pass
+        subsystems.ELEVATOR.check_for_zero()
+        # pass
 
     def isFinished(self):
         # This is always running
