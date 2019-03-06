@@ -1,20 +1,21 @@
-"""
+""""
 Take a ball in
 """
 from wpilib.command import Command
 import subsystems
 
 
-class BallIn(Command):
+class SetElvPosition(Command):
     """BallIntake IN"""
 
     def __init__(self):
-        super().__init__("Take in a ball")
+        super().__init__("set_arm_position")
 
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.set_speed(1.0)
+        subsystems.ELEVATOR.set_values()
+        subsystems.ELEVATOR.set_position(subsystems.ELEVATOR.get_position())
 
     def isFinished(self):
         return True

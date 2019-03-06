@@ -25,7 +25,7 @@ from wpilib.drive import DifferentialDrive
 
 from commands.drive import Drive
 import subsystems
-
+from utility.set_motor import set_motor
 
 # TODO move these IDs to the __init__
 CAN_LEFT_LEADER = 4
@@ -37,14 +37,6 @@ PNU_LEFT_LOW = 2
 PNU_RIGHT_HIGH = 3
 PNU_RIGHT_LOW = 4
 
-def set_motor2(motor, brake, inverted):
-    motor.enableCurrentLimit(False)
-    motor.configPeakOutputForward(1, 0)
-    motor.configPeakOutputReverse(-1, 0)
-    motor.setNeutralMode(brake)
-    motor.configOpenLoopRamp(0, 0)
-    motor.setInverted(inverted)
-
 class Drivetrain(Subsystem):
     """Functions for the drivetrain"""
 
@@ -52,32 +44,35 @@ class Drivetrain(Subsystem):
         super().__init__("Drivetrain")
 
         self.leftleader = WPI_TalonSRX(CAN_LEFT_LEADER)
-        set_motor2(self.leftleader, WPI_TalonSRX.NeutralMode.Brake, False)
+        set_motor(self.leftleader, WPI_TalonSRX.NeutralMode.Brake, False)
 
         self.leftfollower = WPI_VictorSPX(CAN_LEFT_FOLLOWER)
-        set_motor2(self.leftfollower, WPI_VictorSPX.NeutralMode.Brake, False)
+        set_motor(self.leftfollower, WPI_VictorSPX.NeutralMode.Brake, False)
         self.leftfollower.follow(self.leftleader)
 
         self.rightleader = WPI_TalonSRX(CAN_RIGHT_LEADER)
-        set_motor2(self.rightleader, WPI_TalonSRX.NeutralMode.Brake, True)
+        set_motor(self.rightleader, WPI_TalonSRX.NeutralMode.Brake, True)
 
         self.rightfollower = WPI_VictorSPX(CAN_RIGHT_FOLLOWER)
-        set_motor2(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake, True)
+        set_motor(self.rightfollower, WPI_VictorSPX.NeutralMode.Brake, True)
         self.rightfollower.follow(self.rightleader)
 
         self.DS = wpilib.DoubleSolenoid(0, 1)
 
         self.drive = DifferentialDrive(self.leftleader, self.rightleader)
-        self.drive.maxOutput = 0.6
+        self.drive.maxOutput = 1.0
 
     def stickdrive(self):
         """set the motors based on the user inputs"""
         stick = subsystems.JOYSTICK
         x = stick.getRawAxis(4)
-        if x > 0.3 or x < -0.3:
-            self.drive.maxOutput = 0.6
-        else:
-            self.drive.maxOutput = 0.6
+        #if x > 0.3 or x < -0.3:
+        #    self.drive.maxOutput = 1.0
+        #else:
+        #    self.drive.maxOutput = 1.0
+
+        self.set_gear(stick.getZ() <= 0.5)
+
         # print(x)
         y = stick.getY()
         self.drive.arcadeDrive(-x, y)

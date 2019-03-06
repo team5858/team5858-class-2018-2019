@@ -15,7 +15,7 @@ class BallOut(Command):
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.wheels_out()
+        subsystems.PAYLOAD.set_speed(-1.0)
 
     def isFinished(self):
         return True

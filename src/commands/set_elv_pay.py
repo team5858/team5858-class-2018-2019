@@ -3,6 +3,7 @@ Take a ball in
 """
 from wpilib.command import Command
 import subsystems
+from wpilib import Preferences
 
 class SetElvPay (Command):
     """stow arm """
@@ -10,14 +11,19 @@ class SetElvPay (Command):
     def __init__(self,pay,elv):
         super().__init__("stow arm")
 
+        self.prefs = Preferences.getInstance()
+
         self.requires(subsystems.PAYLOAD)
         self.requires(subsystems.ELEVATOR)
         self.pay_pos = pay
         self.elv_pos = elv
 
     def initialize(self):
-        #subsystems.PAYLOAD.set_values()
-        #subsystems.PAYLOAD.set_position(self.pay_pos)
+        self.pay_pos = self.prefs.getFloat("Elbow Position", 0)
+        subsystems.PAYLOAD.set_values()
+        subsystems.PAYLOAD.set_position(self.pay_pos)
+
+        self.elv_pos = self.prefs.getFloat("Elevator Position", 0)
         subsystems.ELEVATOR.set_values()
         subsystems.ELEVATOR.set_position(self.elv_pos)
 
@@ -26,4 +32,4 @@ class SetElvPay (Command):
         subsystems.PAYLOAD.publish_data()
 
     def isFinished(self):
-        return subsystems.PAYLOAD.get_position() == self.pay_pos and subsystems.ELEVATOR.get_position() == self.elv_pos
+        return True

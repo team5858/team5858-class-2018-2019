@@ -9,19 +9,12 @@ from wpilib import Preferences
 from ctre import ControlMode
 from wpilib import DoubleSolenoid
 from commands.ball_z import BallZ
-from  wpilib.doublesolenoid import DoubleSolenoid
+from wpilib.doublesolenoid import DoubleSolenoid
+from utility.set_motor import set_motor
 
 CAN_ELBOW_LEADER = 7 #3 on practice bot
 CAN_ELBOW_FOLLOWER = 10 #2 on practice bot
 CAN_BALL_INTAKE = 3 #7 on practice bot
-
-def set_motor2(motor, brake, inverted):
-    motor.enableCurrentLimit(False)
-    motor.configPeakOutputForward(1, 0)
-    motor.configPeakOutputReverse(-1, 0)
-    motor.setNeutralMode(brake)
-    motor.configOpenLoopRamp(0, 0)
-    motor.setInverted(inverted)
 
 class Payload(Subsystem):
     """
@@ -34,18 +27,18 @@ class Payload(Subsystem):
         self.prefs = Preferences.getInstance()
 
         self.elbowleader = TalonSRX(CAN_ELBOW_LEADER)
-        set_motor2(self.elbowleader, TalonSRX.NeutralMode.Brake, False)
+        set_motor(self.elbowleader, TalonSRX.NeutralMode.Brake, False)
         self.elbowleader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0)
         self.elbowleader.setSelectedSensorPosition(0, 0, 0)
         self.elbowleader.selectProfileSlot(0, 0)
         self.elbowleader.setSensorPhase(True)
 
         self.elbowfollower = VictorSPX(CAN_ELBOW_FOLLOWER)
-        set_motor2(self.elbowfollower, VictorSPX.NeutralMode.Brake, False)
+        set_motor(self.elbowfollower, VictorSPX.NeutralMode.Brake, False)
         self.elbowfollower.follow(self.elbowleader)
 
         self.baller = TalonSRX(CAN_BALL_INTAKE)
-        set_motor2(self.baller, TalonSRX.NeutralMode.Brake, False)
+        set_motor(self.baller, TalonSRX.NeutralMode.Brake, False)
 
         self.elbow_zero = False
 
@@ -57,6 +50,7 @@ class Payload(Subsystem):
 
     def set_wheels_speed(self,speed):
         self.baller.set(ControlMode.PercentOutput, speed)
+        #print(speed)
 
     def hatch_punch_out(self):
         subsystems.SERIAL.fire_event('Punch It')

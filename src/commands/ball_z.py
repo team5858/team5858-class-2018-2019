@@ -13,8 +13,9 @@ class BallZ(Command):
         self.requires(subsystems.PAYLOAD)
 
     def execute(self):
-        subsystems.PAYLOAD.set_wheels_speed(subsystems.JOYSTICK.getZ())
+        # subsystems.PAYLOAD.set_wheels_speed(subsystems.JOYSTICK.getZ())
         # subsystems.PAYLOAD.check_for_zero()
+        pass
 
     def isFinished(self):
         # This is always running

@@ -15,7 +15,7 @@ class BallStop(Command):
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.wheels_stop()
+        subsystems.PAYLOAD.set_speed(0.0)
 
     def isFinished(self):
         return True
