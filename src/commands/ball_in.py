@@ -14,7 +14,7 @@ class BallIn(Command):
         self.requires(subsystems.PAYLOAD)
 
     def initialize(self):
-        subsystems.PAYLOAD.set_speed(1.0)
+        subsystems.PAYLOAD.set_wheels_speed(1.0)
 
     def isFinished(self):
         return True

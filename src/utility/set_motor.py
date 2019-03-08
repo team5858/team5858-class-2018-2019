@@ -8,3 +8,5 @@ def set_motor(motor, brake, inverted):
     motor.configOpenLoopRamp(0, 0)
     motor.setInverted(inverted)
     motor.set(ControlMode.PercentOutput, 0.0)
+    motor.configPeakCurrentLimit(int(60), 0)
+    motor.enableCurrentLimit(True)

@@ -92,10 +92,13 @@ def get_joystick():
     buttonY.whenReleased(SetPaySpeed(0.0))
 
     buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
-    buttonA.whenPressed(SetElvSpeed(0.7))
-    buttonA.whenReleased(SetElvPosition())
+    buttonA.whenPressed(SetElvSpeed(-0.3))
+    #buttonA.whenReleased(SetElvPosition())
+    buttonA.whenReleased(SetElvSpeed(0.0))
 
     buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
     buttonB.whenPressed(SetElvSpeed(-0.3))
+    buttonB.whenPressed(SetElvSpeed(0.0))
 
     return joystick
+

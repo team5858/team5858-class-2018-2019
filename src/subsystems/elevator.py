@@ -63,9 +63,9 @@ class Elevator(Subsystem):
     def publish_data(self):
         # This will print the position and velocity to the smartDashboard
         SmartDashboard.putNumber("Elevator Position", self.elevatorleader.getSelectedSensorPosition(0))
-        SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity(0))
-        SmartDashboard.putNumber("Elevator Current", self.elevatorleader.getOutputCurrent())
-        SmartDashboard.putNumber("Elevator Output", self.elevatorleader.getMotorOutputPercent())
+        #SmartDashboard.putNumber("Elevator Velocity", self.elevatorleader.getSelectedSensorVelocity(0))
+        #SmartDashboard.putNumber("Elevator Current", self.elevatorleader.getOutputCurrent())
+        #SmartDashboard.putNumber("Elevator Output", self.elevatorleader.getMotorOutputPercent())
 
     def check_for_zero(self):
         if not self.elevator_zero:

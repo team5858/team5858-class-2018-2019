@@ -84,7 +84,8 @@ class Payload(Subsystem):
                 self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=- 0.3)
 
     def publish_data(self):
+        #print(self.elbowleader.getSelectedSensorPosition(0))
         SmartDashboard.putNumber("elbowPosition",self.elbowleader.getSelectedSensorPosition(0))
-        SmartDashboard.putNumber("elbowVelocity", self.elbowleader.getSelectedSensorVelocity(0))
-        SmartDashboard.putNumber("elbowCurrent", self.elbowleader.getOutputCurrent())
-        SmartDashboard.putNumber("elbowOutput", self.elbowleader.getMotorOutputPercent())
+        #SmartDashboard.putNumber("elbowVelocity", self.elbowleader.getSelectedSensorVelocity(0))
+        #SmartDashboard.putNumber("elbowCurrent", self.elbowleader.getOutputCurrent())
+        #SmartDashboard.putNumber("elbowOutput", self.elbowleader.getMotorOutputPercent())
