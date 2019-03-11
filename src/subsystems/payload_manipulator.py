@@ -80,8 +80,6 @@ class Payload(Subsystem):
             if self.elbowleader.isRevLimitSwitchClosed():
                 self.elbowleader.setSelectedSensorPosition(0, 0, 0)
                 self.elbow_zero = True
-            else:
-                self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=- 0.3)
 
     def publish_data(self):
         #print(self.elbowleader.getSelectedSensorPosition(0))

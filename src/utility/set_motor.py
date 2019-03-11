@@ -1,7 +1,7 @@
 from ctre import ControlMode
 
 def set_motor(motor, brake, inverted):
-    motor.enableCurrentLimit(False)
+    #motor.enableCurrentLimit(False)
     motor.configPeakOutputForward(1, 0)
     motor.configPeakOutputReverse(-1, 0)
     motor.setNeutralMode(brake)

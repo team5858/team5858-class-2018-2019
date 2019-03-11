@@ -71,7 +71,7 @@ class Drivetrain(Subsystem):
         #else:
         #    self.drive.maxOutput = 1.0
 
-        self.set_gear(stick.getZ() <= 0.5)
+        self.set_gear(stick.getZ() > 0.5)
 
         # print(x)
         y = stick.getY()
