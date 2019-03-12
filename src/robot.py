@@ -50,8 +50,16 @@ class HurricaneRobot(CommandBasedRobot):
         """
         Called to start the automomous command
         """
-
+        print("blah blah")
         subsystems.SERIAL.fire_event('Autonomous Mode')
+
+    def disabledInit(self):
+        """
+        Called to start the automomous command
+        """
+        subsystems.PAYLOAD.elbow_zero = False
+        subsystems.ELEVATOR.elevator_zero = False
+        print("blah blah")
 
     # WARNING. We need to implement the teleopInit just in case. The field *might* require that we do so (might kill
     # the autonomous command)

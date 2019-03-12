@@ -44,7 +44,10 @@ class Elevator(Subsystem):
         self.set_values()
 
     def set_position(self, position):
-        self.elevatorleader.set(ControlMode.MotionMagic, position)
+        if self.elevator_zero:
+            self.elevatorleader.set(ControlMode.MotionMagic, position)
+        else:
+            print("Position Not Set")
 
     def elevator_speed(self, speed):
         self.elevatorleader.set(ControlMode.PercentOutput, speed)

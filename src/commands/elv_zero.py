@@ -8,9 +8,6 @@ class elv_zero(Command):
 
         self.requires(subsystems.ELEVATOR)
 
-    def initialize(self):
-        subsystems.ELEVATOR.elevator_zero = False
-
     def execute(self):
         subsystems.ELEVATOR.check_for_zero()
         # pass

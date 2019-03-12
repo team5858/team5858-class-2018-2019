@@ -32,7 +32,7 @@ from commands.set_pay_speed import SetPaySpeed
 from commands.ball_in import BallIn
 from commands.ball_out import BallOut
 from commands.ball_stop import BallStop
-from commands.set_elv_pos import SetElvPosition
+from commands.set_arm_pos import SetArmPosition
 
 def get_joystick():
     """
@@ -59,7 +59,7 @@ def get_joystick():
     buttonB.whenReleased(hatch_punch(False))
 
     buttonX = JoystickButton(joystick=joystick, buttonNumber=3)
-    buttonX.whenPressed(SetElvPay(0, 200))
+    buttonX.whenPressed(SetArmPosition(500))
 
     buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
     buttonA.whenPressed(SetElvPay(0, 3000))

@@ -60,7 +60,10 @@ class Payload(Subsystem):
         self.DS.set(DoubleSolenoid.Value.kReverse)
     
     def set_position(self,pos):
-        self.elbowleader.set(mode=ControlMode.MotionMagic, demand0=pos)
+        if self.elbow_zero:
+            self.elbowleader.set(mode=ControlMode.MotionMagic, demand0=pos)
+        else:
+            print("Elbow Not Set")
 
     def set_speed(self, speed):
         self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=speed)

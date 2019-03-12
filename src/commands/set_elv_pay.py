@@ -22,6 +22,7 @@ class SetElvPay (Command):
         self.pay_pos = self.prefs.getFloat("Elbow Position", 0)
         subsystems.PAYLOAD.set_values()
         subsystems.PAYLOAD.set_position(self.pay_pos)
+        print("George")
 
         self.elv_pos = self.prefs.getFloat("Elevator Position", 0)
         subsystems.ELEVATOR.set_values()
