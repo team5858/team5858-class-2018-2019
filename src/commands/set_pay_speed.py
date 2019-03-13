@@ -16,5 +16,8 @@ class SetPaySpeed(Command):
     def initialize(self):
         subsystems.PAYLOAD.set_speed(self.speed)
 
+    def execute(self):
+        subsystems.PAYLOAD.publish_data()
+
     def isFinished(self):
         return True

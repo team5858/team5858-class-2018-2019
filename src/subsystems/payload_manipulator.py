@@ -69,11 +69,11 @@ class Payload(Subsystem):
         self.elbowleader.set(mode=ControlMode.PercentOutput, demand0=speed)
 
     def set_values(self):
-        self.elbowleader.config_kP(0, self.prefs.getFloat("Elbow P", 0), 0)
-        self.elbowleader.config_kI(0, self.prefs.getFloat("Elbow I", 0), 0)
-        self.elbowleader.config_kD(0, self.prefs.getFloat("Elbow D", 0), 0)
-        self.elbowleader.configMotionCruiseVelocity(int(self.prefs.getFloat("Elbow Velocity", 1024)), 0)
-        self.elbowleader.configMotionAcceleration(int(self.prefs.getFloat("Elbow Acceleration", 1024)), 0)
+        self.elbowleader.config_kP(0, 0.8, 0)
+        self.elbowleader.config_kI(0, 0.0, 0)
+        self.elbowleader.config_kD(0, 0.0, 0)
+        self.elbowleader.configMotionCruiseVelocity(int(200), 0)
+        self.elbowleader.configMotionAcceleration(int(200), 0)
 
     def get_position(self):
         return self.elbowleader.getSelectedSensorPosition(0)

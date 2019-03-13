@@ -8,7 +8,7 @@ from wpilib import Preferences
 class SetElvPay (Command):
     """stow arm """
 
-    def __init__(self,pay,elv):
+    def __init__(self,elv,pay):
         super().__init__("stow arm")
 
         self.prefs = Preferences.getInstance()
@@ -19,12 +19,12 @@ class SetElvPay (Command):
         self.elv_pos = elv
 
     def initialize(self):
-        self.pay_pos = self.prefs.getFloat("Elbow Position", 0)
+       # self.pay_pos = self.prefs.getFloat("Elbow Position", 0)
         subsystems.PAYLOAD.set_values()
         subsystems.PAYLOAD.set_position(self.pay_pos)
-        print("George")
+       # print("George")
 
-        self.elv_pos = self.prefs.getFloat("Elevator Position", 0)
+        #self.elv_pos = self.prefs.getFloat("Elevator Position", 0)
         subsystems.ELEVATOR.set_values()
         subsystems.ELEVATOR.set_position(self.elv_pos)
 

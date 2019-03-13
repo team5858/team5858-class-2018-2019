@@ -59,10 +59,10 @@ def get_joystick():
     buttonB.whenReleased(hatch_punch(False))
 
     buttonX = JoystickButton(joystick=joystick, buttonNumber=3)
-    buttonX.whenPressed(SetArmPosition(500))
+    buttonX.whenPressed(SetElvPay(-3000, 470))
 
     buttonA = JoystickButton(joystick=joystick, buttonNumber=1)
-    buttonA.whenPressed(SetElvPay(0, 3000))
+    buttonA.whenPressed(SetElvPay(-3000, 2250))
 
     buttonL1 = JoystickButton(joystick=joystick, buttonNumber=5)
     buttonL1.whenPressed(BallIn())
@@ -83,22 +83,49 @@ def get_joystick():
     #buttonA.whenPressed(SetElvSpeed(-0.5))
     #buttonA.whenReleased(SetElvSpeed(0.0))
 
+    #high hatch
+    buttonL1 = JoystickButton(joystick=joystick2, buttonNumber=5)
+    buttonL1.whenPressed(SetElvPay(-25000, 470))
+
+    #mid hatch
     buttonX = JoystickButton(joystick=joystick2, buttonNumber=3)
-    buttonX.whenPressed(SetPaySpeed(0.3))
-    buttonX.whenReleased(SetPaySpeed(0.0))
+    buttonX.whenPressed(SetElvPay(-17000, 470))
 
-    buttonY = JoystickButton(joystick=joystick2, buttonNumber=4)
-    buttonY.whenPressed(SetPaySpeed(-0.3))
-    buttonY.whenReleased(SetPaySpeed(0.0))
-
+    #stow
     buttonA = JoystickButton(joystick=joystick2, buttonNumber=1)
-    buttonA.whenPressed(SetElvSpeed(-0.3))
-    #buttonA.whenReleased(SetElvPosition())
-    buttonA.whenReleased(SetElvSpeed(0.0))
+    buttonA.whenPressed(SetElvPay(0, 0))
 
+    #high ball
+    buttonR1 = JoystickButton(joystick=joystick2, buttonNumber=6)
+    buttonR1.whenPressed(SetElvPay(-25000, 1100))
+
+    #mid ball
+    buttonY = JoystickButton(joystick=joystick2, buttonNumber=4)
+    buttonY.whenPressed(SetElvPay(-17000, 1100))
+
+    #low ball
     buttonB = JoystickButton(joystick=joystick2, buttonNumber=2)
-    buttonB.whenPressed(SetElvSpeed(0.5))
-    buttonB.whenReleased(SetElvSpeed(0.0))
+    buttonB.whenPressed(SetElvPay(-3000, 1100))
+
+    #elevator up
+    buttonLS = JoystickButton(joystick=joystick2, buttonNumber=9)
+    buttonLS.whenPressed(SetElvSpeed(-0.7))
+    buttonLS.whenReleased(SetElvSpeed(0.0))
+
+    #all stop
+    buttonRS = JoystickButton(joystick=joystick2, buttonNumber=10)
+    buttonRS.whenPressed(SetElvSpeed(0.0))
+    buttonRS.whenPressed(SetPaySpeed(0.0))
+
+    #elbow up
+    buttonBack = JoystickButton(joystick=joystick2, buttonNumber=7)
+    buttonBack.whenPressed(SetPaySpeed(-0.3))
+    buttonBack.whenReleased(SetPaySpeed(0.0))
+
+    #elbow down
+    buttonStart = JoystickButton(joystick=joystick2, buttonNumber=8)
+    buttonStart.whenPressed(SetPaySpeed(0.3))
+    buttonStart.whenReleased(SetPaySpeed(0.0))
 
     return joystick
 

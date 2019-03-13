@@ -55,13 +55,20 @@ class Elevator(Subsystem):
     def set_values(self):
         # This will set the PIDs, velocity, and acceleration, values from the
         # preference table so we can tune them easily
-        self.elevatorleader.config_kP(0, self.prefs.getFloat("Elevator P", 0.1), 0)
-        self.elevatorleader.config_kI(0, self.prefs.getFloat("Elevator I", 0.0), 0)
-        self.elevatorleader.config_kD(0, self.prefs.getFloat("Elevator D", 0.0), 0)
+        #self.elevatorleader.config_kP(0, self.prefs.getFloat("Elevator P", 0.1), 0)
+        #self.elevatorleader.config_kI(0, self.prefs.getFloat("Elevator I", 0.0), 0)
+        #self.elevatorleader.config_kD(0, self.prefs.getFloat("Elevator D", 0.0), 0)
+        #self.elevatorleader.configMotionCruiseVelocity(
+         #   int(self.prefs.getInt("Elevator Velocity", 1024)), 0)
+        #self.elevatorleader.configMotionAcceleration(
+         #   int(self.prefs.getInt("Elevator Acceleration", 1024)), 0)
+        self.elevatorleader.config_kP(0, 3.2, 0)
+        self.elevatorleader.config_kI(0, 0.0, 0)
+        self.elevatorleader.config_kD(0, 0.0, 0)
         self.elevatorleader.configMotionCruiseVelocity(
-            int(self.prefs.getInt("Elevator Velocity", 1024)), 0)
+            int(1000), 0)
         self.elevatorleader.configMotionAcceleration(
-            int(self.prefs.getInt("Elevator Acceleration", 1024)), 0)
+            int(1000), 0)
 
     def publish_data(self):
         # This will print the position and velocity to the smartDashboard
